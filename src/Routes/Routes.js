@@ -1,4 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
+import Buyers from "../Dashboard/Buyers";
+import Dashboard from "../Dashboard/Dashboard";
+import MyOrders from "../Dashboard/MyOrders";
+import Sellers from "../Dashboard/Sellers";
 import ErrorElement from "../ErrorElement/ErrorElement";
 import Main from "../Layouts/Main";
 import AdvertisedProducts from "../Pages/Home/AdvertisedProducts";
@@ -32,6 +36,25 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp></SignUp>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    errorElement: <ErrorElement></ErrorElement>,
+    children: [
+      {
+        path: "/dashboard/buyers",
+        element: <Buyers></Buyers>,
+      },
+      {
+        path: "/dashboard/sellers",
+        element: <Sellers></Sellers>,
+      },
+      {
+        path: "/dashboard/myorders",
+        element: <MyOrders></MyOrders>,
       },
     ],
   },

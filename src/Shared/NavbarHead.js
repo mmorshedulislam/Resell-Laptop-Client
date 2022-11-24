@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { AiOutlineBars } from "react-icons/ai";
 
 const NavbarHead = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -35,33 +36,43 @@ const NavbarHead = () => {
             </span>
           </Link>
         </Navbar.Brand>
-        {user && <div className="flex md:order-2">
-          <Dropdown
-            arrowIcon={false}
-            inline={true}
-            label={
-              <Avatar
-                alt="User settings"
-                img={userData?.image}
-                rounded={true}
-              />
-            }
+        {user && (
+          <div className="flex md:order-2">
+            <Dropdown
+              arrowIcon={false}
+              inline={true}
+              label={
+                <Avatar
+                  alt="User settings"
+                  img={userData?.image}
+                  rounded={true}
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">{userData?.name}</span>
+                <span className="block truncate text-sm font-medium">
+                  {userData?.email}
+                </span>
+              </Dropdown.Header>
+              <Dropdown.Item><Link to={'/dashboard/myorders'}>My Orders</Link></Dropdown.Item>
+              <Dropdown.Item>My Wishlist</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item>
+                <button onClick={handleLogOut}> Sign out</button>
+              </Dropdown.Item>
+            </Dropdown>
+            <Navbar.Toggle />
+          </div>
+        )}
+        <div>
+          <label
+            htmlFor="dashboard-drawer"
+            className="text-2xl drawer-button lg:hidden"
           >
-            <Dropdown.Header>
-              <span className="block text-sm">{userData?.name}</span>
-              <span className="block truncate text-sm font-medium">
-                {userData?.email}
-              </span>
-            </Dropdown.Header>
-            <Dropdown.Item>My Orders</Dropdown.Item>
-            <Dropdown.Item>My Wishlist</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>
-              <button onClick={handleLogOut}> Sign out</button>
-            </Dropdown.Item>
-          </Dropdown>
-          <Navbar.Toggle />
-        </div>}
+            <AiOutlineBars />
+          </label>
+        </div>
         <Navbar.Collapse>
           <Navbar.Link active={true}>
             <Link to={"/"}>Home</Link>
