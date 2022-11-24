@@ -29,12 +29,11 @@ const NavbarHead = () => {
             <Dropdown.Header>
               <span className="block text-sm">Bonnie Green</span>
               <span className="block truncate text-sm font-medium">
-                name@flowbite.com
+                name@mail.com
               </span>
             </Dropdown.Header>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Item>Earnings</Dropdown.Item>
+            <Dropdown.Item>My Orders</Dropdown.Item>
+            <Dropdown.Item>My Wishlist</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item>Sign out</Dropdown.Item>
           </Dropdown>
