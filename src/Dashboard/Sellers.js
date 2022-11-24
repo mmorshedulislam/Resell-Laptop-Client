@@ -1,15 +1,42 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { SlClose } from "react-icons/sl";
 
 const Sellers = () => {
-    const {data: sellers} = useQuery({
-        queryKey: ["buyers"],
-        queryFn: () =>
-          fetch(`http://localhost:5000/users?userType=seller`).then((res) => res.json()),
+  const { data: sellers = [], refetch } = useQuery({
+    queryKey: ["buyers"],
+    queryFn: () =>
+      fetch(`http://localhost:5000/users?userType=seller`).then((res) =>
+        res.json()
+      ),
+  });
+
+  const handleVerified = (id) => {
+    fetch(`http://localhost:5000/user/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+        }
       });
+  };
+
+  const handleDelete = (id) => {
+    fetch(`http://localhost:5000/user/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          refetch();
+        }
+      });
+  };
   return (
     <div>
-      <h2 className="text-5xl text-center">Sellers: {sellers.length}</h2>
+      <h2 className="text-5xl text-center">Sellers: {sellers?.length}</h2>
 
       <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
         <div class="flex justify-between items-center pb-4 bg-white dark:bg-gray-900">
@@ -62,7 +89,7 @@ const Sellers = () => {
                 Position
               </th>
               <th scope="col" class="py-3 px-6">
-                Status
+                Verification
               </th>
               <th scope="col" class="py-3 px-6">
                 Action
@@ -70,8 +97,11 @@ const Sellers = () => {
             </tr>
           </thead>
           <tbody>
-            {
-                sellers.map(seller => <tr key={seller._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            {sellers.map((seller) => (
+              <tr
+                key={seller._id}
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+              >
                 <td class="p-4 w-4">
                   <div class="flex items-center">
                     <input
@@ -90,33 +120,46 @@ const Sellers = () => {
                 >
                   <img
                     class="w-10 h-10 rounded-full"
-                    src={seller?.image ? seller?.image : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'}
+                    src={
+                      seller?.image
+                        ? seller?.image
+                        : "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
+                    }
                     alt={seller?.name}
                   />
                   <div class="pl-3">
                     <div class="text-base font-semibold">{seller.name}</div>
-                    <div class="font-normal text-gray-500">
-                      neil.sims@flowbite.com
-                    </div>
+                    <div class="font-normal text-gray-500">{seller?.email}</div>
                   </div>
                 </th>
                 <td class="py-4 px-6">React Developer</td>
                 <td class="py-4 px-6">
                   <div class="flex items-center">
-                    <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{" "}
-                    Online
+                    {!seller?.verified ? (
+                      <button
+                        onClick={() => handleVerified(seller?._id)}
+                        type="button"
+                        class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                      >
+                        Verify
+                      </button>
+                    ) : (
+                      <span className="text-blue-400 text-center font-bold">
+                        Verified
+                      </span>
+                    )}
                   </div>
                 </td>
                 <td class="py-4 px-6">
-                  <a
-                    href="#"
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  <button
+                    onClick={() => handleDelete(seller?._id)}
+                    type="button"
                   >
-                    Edit user
-                  </a>
+                    <SlClose className="text-2xl" />
+                  </button>
                 </td>
-              </tr>)
-            }
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

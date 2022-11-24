@@ -24,7 +24,7 @@ const NavbarHead = () => {
       })
       .catch((err) => console.log(err));
   };
-  console.log(userData);
+
   return (
     <div>
       <Navbar fluid={true} rounded={true}>

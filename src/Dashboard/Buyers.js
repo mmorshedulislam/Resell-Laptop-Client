@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const Buyers = () => {
-  const {data: buyers} = useQuery({
+  const { data: buyers = [] } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
-      fetch(`http://localhost:5000/users?userType=buyer`).then((res) => res.json()),
+      fetch(`http://localhost:5000/users?userType=buyer`).then((res) =>
+        res.json()
+      ),
   });
   return (
     <div>
@@ -70,8 +72,11 @@ const Buyers = () => {
             </tr>
           </thead>
           <tbody>
-            {
-                buyers.map(buyer => <tr key={buyer._id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            {buyers.map((buyer) => (
+              <tr
+                key={buyer._id}
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+              >
                 <td class="p-4 w-4">
                   <div class="flex items-center">
                     <input
@@ -90,14 +95,16 @@ const Buyers = () => {
                 >
                   <img
                     class="w-10 h-10 rounded-full"
-                    src={buyer?.image ? buyer?.image : 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'}
+                    src={
+                      buyer?.image
+                        ? buyer?.image
+                        : "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
+                    }
                     alt={buyer?.name}
                   />
                   <div class="pl-3">
                     <div class="text-base font-semibold">{buyer?.name}</div>
-                    <div class="font-normal text-gray-500">
-                    {buyer?.email}
-                    </div>
+                    <div class="font-normal text-gray-500">{buyer?.email}</div>
                   </div>
                 </th>
                 <td class="py-4 px-6">React Developer</td>
@@ -115,8 +122,8 @@ const Buyers = () => {
                     Edit user
                   </a>
                 </td>
-              </tr>)
-            }
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

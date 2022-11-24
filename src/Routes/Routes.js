@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Buyers from "../Dashboard/Buyers";
-import Dashboard from "../Dashboard/Dashboard";
+import Dashboard from "../Layouts/Dashboard";
 import MyOrders from "../Dashboard/MyOrders";
 import Sellers from "../Dashboard/Sellers";
 import ErrorElement from "../ErrorElement/ErrorElement";
