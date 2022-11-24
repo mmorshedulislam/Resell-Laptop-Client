@@ -1,8 +1,29 @@
+import { useQuery } from "@tanstack/react-query";
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import React from "react";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const NavbarHead = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const { data: userData } = useQuery({
+    queryKey: ["user", user],
+    queryFn: () =>
+      fetch(`http://localhost:5000/user?email=${user?.email}`).then((res) =>
+        res.json()
+      ),
+  });
+
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    logOut()
+      .then(() => {
+        toast.success("Sign Out Successfully.");
+      })
+      .catch((err) => console.log(err));
+  };
+  console.log(userData);
   return (
     <div>
       <Navbar fluid={true} rounded={true}>
@@ -14,37 +35,39 @@ const NavbarHead = () => {
             </span>
           </Link>
         </Navbar.Brand>
-        <div className="flex md:order-2">
+        {user && <div className="flex md:order-2">
           <Dropdown
             arrowIcon={false}
             inline={true}
             label={
               <Avatar
                 alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                img={userData?.image}
                 rounded={true}
               />
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
+              <span className="block text-sm">{userData?.name}</span>
               <span className="block truncate text-sm font-medium">
-                name@mail.com
+                {userData?.email}
               </span>
             </Dropdown.Header>
             <Dropdown.Item>My Orders</Dropdown.Item>
             <Dropdown.Item>My Wishlist</Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item>
+              <button onClick={handleLogOut}> Sign out</button>
+            </Dropdown.Item>
           </Dropdown>
           <Navbar.Toggle />
-        </div>
+        </div>}
         <Navbar.Collapse>
-          <Navbar.Link  active={true}>
-          <Link to={"/"}>Home</Link>
+          <Navbar.Link active={true}>
+            <Link to={"/"}>Home</Link>
           </Navbar.Link>
           <Navbar.Link>
-            <Link to={"/products"}>Products</Link>
+            <Link to={"/advertisedProducts"}>Advertised Products</Link>
           </Navbar.Link>
           <Navbar.Link>
             <Link to={"/products"}>Dell</Link>

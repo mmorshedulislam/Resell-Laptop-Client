@@ -1,21 +1,59 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
+
   const { handleSubmit, register } = useForm();
 
   const handleSignUp = (data) => {
     const { name, image, email, password, userType } = data;
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-      })
-      .catch((err) => console.log(err));
+    const userImg = image[0];
+
+    const formData = new FormData();
+    formData.append("image", userImg);
+    const url = `https://api.imgbb.com/1/upload?key=b244a88f9f8d1ed1e003856b185c6459`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgData) => {
+        if (imgData.success) {
+          const imgUrl = imgData.data.url;
+          createUser(email, password)
+            .then((result) => {
+              const user = result.user;
+              if (user.uid) {
+                const userData = {
+                  name,
+                  image: imgUrl,
+                  email,
+                  userType,
+                };
+                console.log(userData);
+                fetch("http://localhost:5000/users", {
+                  method: "POST",
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                  body: JSON.stringify(userData),
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    console.log(data);
+                    toast.success("User Created Successfully.");
+                  });
+              }
+            })
+            .catch((err) => console.log(err));
+        }
+      });
   };
+
   return (
     <div className="w-1/2 mx-auto my-10">
       <h2 className="text-3xl mb-5">Sign Up</h2>
