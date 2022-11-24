@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Login = () => {
+  const { signInEmailPassword, googleSignIn } = useContext(AuthContext);
+  const { register, handleSubmit } = useForm();
+
+  const handleLogin = (data) => {
+    const { email, password } = data;
+    signInEmailPassword(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn().then((result) => {
+      const user = result.user;
+      console.log(user);
+    });
+  };
+
   return (
     <div className="w-1/2 mx-auto my-10">
       <h2 className="text-3xl mb-5">Login</h2>
-      <form>
+      <form onSubmit={handleSubmit(handleLogin)}>
         <div className="my-6">
           <label
             for="email"
@@ -18,7 +40,7 @@ const Login = () => {
             id="email"
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             placeholder="Your Email"
-            required
+            {...register("email", { required: true })}
           />
         </div>
         <div className="mb-6">
@@ -33,7 +55,7 @@ const Login = () => {
             id="password"
             placeholder="******"
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-            required
+            {...register("password", { required: true })}
           />
         </div>
 
@@ -50,7 +72,12 @@ const Login = () => {
             for="terms"
             className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            <button>You don't have an account? <Link to={'/signup'} className='text-blue-700'>Sign Up</Link></button>
+            <button>
+              You don't have an account?{" "}
+              <Link to={"/signup"} className="text-blue-700">
+                Sign Up
+              </Link>
+            </button>
           </label>
         </div>
         <div className="flex items-start my-6">
@@ -58,11 +85,12 @@ const Login = () => {
             for="terms"
             className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            <button className='text-blue-700'>Forgotten Password?</button>
+            <button className="text-blue-700">Forgotten Password?</button>
           </label>
         </div>
       </div>
       <button
+        onClick={handleGoogleSignIn}
         type="button"
         className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
       >
