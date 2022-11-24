@@ -37,7 +37,7 @@ const Footer = () => {
             <h2 className="mb-6 text-sm font-semibold text-white uppercase dark:text-white">
               Follow us
             </h2>
-            <ul className="text-gray-600 text-white dark:text-gray-400">
+            <ul className="text-white dark:text-gray-400">
               <li className="mb-4">
                 <Link
                   href="https://github.com/themesberg/flowbite"
@@ -77,7 +77,7 @@ const Footer = () => {
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
-        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+        <span className="text-sm text-gray-100 sm:text-center dark:text-gray-400">
           © {new Date().getFullYear() }
           <Link className="hover:underline">Laptop Hunter™</Link>. All Rights
           Reserved.

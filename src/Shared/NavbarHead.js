@@ -41,13 +41,24 @@ const NavbarHead = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link href="/navbars" active={true}>
-            Home
+          <Navbar.Link  active={true}>
+          <Link to={"/"}>Home</Link>
           </Navbar.Link>
-          <Navbar.Link href="/navbars">About</Navbar.Link>
-          <Navbar.Link href="/navbars">Services</Navbar.Link>
-          <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-          <Navbar.Link href="/navbars">Contact</Navbar.Link>
+          <Navbar.Link>
+            <Link to={"/products"}>Products</Link>
+          </Navbar.Link>
+          <Navbar.Link>
+            <Link to={"/products"}>Dell</Link>
+          </Navbar.Link>
+          <Navbar.Link>
+            <Link to={"/products"}>HP</Link>
+          </Navbar.Link>
+          <Navbar.Link>
+            <Link to={"/products"}>Walton</Link>
+          </Navbar.Link>
+          <Navbar.Link>
+            <Link to={"/login"}>Login</Link>
+          </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
     </div>
