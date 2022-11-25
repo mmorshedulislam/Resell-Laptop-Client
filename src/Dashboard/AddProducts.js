@@ -13,7 +13,6 @@ const AddProducts = () => {
   const date = new Date();
   const publishedDate = format(date, "PP");
 
-
   const { data: userData } = useQuery({
     queryKey: ["user", user],
     queryFn: () =>
@@ -25,7 +24,8 @@ const AddProducts = () => {
   const handleAddProduct = (productData) => {
     const {
       name,
-      price,
+      originalPrice,
+      currentPrice,
       condition,
       purchaseYear,
       phone,
@@ -49,7 +49,8 @@ const AddProducts = () => {
         if (imgData.data) {
           const product = {
             name,
-            price,
+            originalPrice,
+            currentPrice,
             condition,
             purchaseYear,
             phone,
@@ -60,8 +61,8 @@ const AddProducts = () => {
             sellerName: user?.displayName,
             sellerEmail: user?.email,
             sellerVerified: userData?.verified,
-            publishedDate, 
-            status: 'available'
+            publishedDate,
+            status: "available",
           };
 
           fetch(`${process.env.REACT_APP_PORT}/addproducts`, {
@@ -92,11 +93,28 @@ const AddProducts = () => {
             className="input input-bordered w-full"
             {...register("name", { required: true })}
           />
+          <select
+            className="select select-bordered w-full"
+            {...register("brand", { required: true })}
+          >
+            <option disabled selected>
+              Brand
+            </option>
+            <option value={"hp"}>HP</option>
+            <option value={"dell"}>Dell</option>
+            <option value={"walton"}>Walton</option>
+          </select>
           <input
             type="text"
-            placeholder="Product Price"
+            placeholder="Original Price"
             className="input input-bordered w-full"
-            {...register("price", { required: true })}
+            {...register("originalPrice", { required: true })}
+          />
+          <input
+            type="text"
+            placeholder="Current Price"
+            className="input input-bordered w-full"
+            {...register("currentPrice", { required: true })}
           />
           <select
             className="select select-bordered w-full"
@@ -127,6 +145,9 @@ const AddProducts = () => {
             className="input input-bordered w-full"
             {...register("location", { required: true })}
           />
+        </div>
+
+        <div className="w-full px-5">
           <div>
             <input
               class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
@@ -135,22 +156,8 @@ const AddProducts = () => {
               {...register("image", { required: true })}
             />
           </div>
-          <select
-            className="select select-bordered w-full"
-            {...register("brand", { required: true })}
-          >
-            <option disabled selected>
-              Brand
-            </option>
-            <option value={"hp"}>HP</option>
-            <option value={"dell"}>Dell</option>
-            <option value={"walton"}>Walton</option>
-          </select>
-        </div>
-
-        <div className="w-full px-5">
           <textarea
-            className="textarea textarea-bordered w-full h-28"
+            className="textarea textarea-bordered w-full h-28 mt-5"
             placeholder="Product Description"
             {...register("description", { required: true })}
           ></textarea>

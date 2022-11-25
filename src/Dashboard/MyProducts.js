@@ -109,14 +109,14 @@ const MyProducts = () => {
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <td class="p-4 w-32">
-                  <img src={product.image} alt={product.name} />
+                  <img className="rounded-full w-20" src={product.image} alt={product.name} />
                 </td>
                 <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
                   {product.name} <br />
                   <span className="uppercase">Brand: {product.brand}</span>
                 </td>
                 <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                  ${product?.price}
+                  ${product?.currentPrice}
                 </td>
                 <td class=" py-4 px-6 font-semibold text-gray-900 dark:text-white">
                   <div className="flex flex-col justify-center items-center">
