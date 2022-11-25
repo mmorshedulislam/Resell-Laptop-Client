@@ -1,14 +1,41 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
+import { SlClose } from "react-icons/sl";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Buyers = () => {
-  const { data: buyers = [] } = useQuery({
+  const { user, userDelete } = useContext(AuthContext);
+  const { data: buyers = [], refetch } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
-      fetch(`http://localhost:5000/users?userType=buyer`).then((res) =>
+      fetch(`${process.env.REACT_APP_PORT}/users?userType=buyer`).then((res) =>
         res.json()
       ),
   });
+
+  const handleUserDelete = (user) => {
+    userDelete(user)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.uid) {
+          toast.success("User deleted successfully.");
+        }
+      });
+  };
+
+  const handleDelete = (id) => {
+    fetch(`${process.env.REACT_APP_PORT}/user/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          handleUserDelete(user);
+          refetch();
+        }
+      });
+  };
   return (
     <div>
       <h2 className="text-5xl text-center">Buyers: {buyers?.length}</h2>
@@ -115,12 +142,9 @@ const Buyers = () => {
                   </div>
                 </td>
                 <td class="py-4 px-6">
-                  <a
-                    href="#"
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit user
-                  </a>
+                  <button onClick={() => handleDelete(buyer._id)}>
+                    <SlClose className="text-2xl" />
+                  </button>
                 </td>
               </tr>
             ))}

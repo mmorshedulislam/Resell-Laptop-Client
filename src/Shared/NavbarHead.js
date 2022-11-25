@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
@@ -8,13 +8,6 @@ import { AiOutlineBars } from "react-icons/ai";
 
 const NavbarHead = () => {
   const { user, logOut } = useContext(AuthContext);
-  const { data: userData } = useQuery({
-    queryKey: ["user", user],
-    queryFn: () =>
-      fetch(`http://localhost:5000/user?email=${user?.email}`).then((res) =>
-        res.json()
-      ),
-  });
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -44,18 +37,20 @@ const NavbarHead = () => {
               label={
                 <Avatar
                   alt="User settings"
-                  img={userData?.image}
+                  img={user?.photoURL}
                   rounded={true}
                 />
               }
             >
               <Dropdown.Header>
-                <span className="block text-sm">{userData?.name}</span>
+                <span className="block text-sm">{user?.displayName}</span>
                 <span className="block truncate text-sm font-medium">
-                  {userData?.email}
+                  {user?.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item><Link to={'/dashboard/myorders'}>My Orders</Link></Dropdown.Item>
+              <Dropdown.Item>
+                <Link to={"/dashboard/myorders"}>My Orders</Link>
+              </Dropdown.Item>
               <Dropdown.Item>My Wishlist</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item>
@@ -89,9 +84,15 @@ const NavbarHead = () => {
           <Navbar.Link>
             <Link to={"/products"}>Walton</Link>
           </Navbar.Link>
-          <Navbar.Link>
-            <Link to={"/login"}>Login</Link>
-          </Navbar.Link>
+          {!user ? (
+            <Navbar.Link>
+              <Link to={"/login"}>Login</Link>
+            </Navbar.Link>
+          ) : (
+            <Navbar.Link>
+              <Link to={"/dashboard"}>Dashboard</Link>
+            </Navbar.Link>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </div>

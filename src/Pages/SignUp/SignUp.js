@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, profileUpdate } = useContext(AuthContext);
 
   const { handleSubmit, register } = useForm();
 
@@ -15,6 +15,7 @@ const SignUp = () => {
 
     const formData = new FormData();
     formData.append("image", userImg);
+
     const url = `https://api.imgbb.com/1/upload?key=b244a88f9f8d1ed1e003856b185c6459`;
     fetch(url, {
       method: "POST",
@@ -24,9 +25,15 @@ const SignUp = () => {
       .then((imgData) => {
         if (imgData.success) {
           const imgUrl = imgData.data.url;
+
           createUser(email, password)
             .then((result) => {
               const user = result.user;
+
+              profileUpdate(name, imgUrl)
+                .then()
+                .catch((err) => console.log(err));
+
               if (user.uid) {
                 const userData = {
                   name,
@@ -34,8 +41,8 @@ const SignUp = () => {
                   email,
                   userType,
                 };
-                console.log(userData);
-                fetch("http://localhost:5000/users", {
+
+                fetch(`${process.env.REACT_APP_PORT}/users`, {
                   method: "POST",
                   headers: {
                     "content-type": "application/json",

@@ -10,6 +10,9 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Products from "../Pages/Products/Products";
 import SignUp from "../Pages/SignUp/SignUp";
+import AddProducts from "../Dashboard/AddProducts";
+import MyProducts from "../Dashboard/MyProducts";
+import BrandProducts from "../Pages/BrandProducts/BrandProducts";
 
 const router = createBrowserRouter([
   {
@@ -22,12 +25,14 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/products",
-        element: <Products></Products>,
-      },
-      {
         path: "/advertisedProducts",
         element: <AdvertisedProducts></AdvertisedProducts>,
+      },
+      {
+        path: `/brand/:id`,
+        loader: ({ params }) =>
+          fetch(`${process.env.REACT_APP_PORT}/brand/${params.id}`),
+        element: <BrandProducts></BrandProducts>,
       },
       {
         path: "/login",
@@ -53,8 +58,16 @@ const router = createBrowserRouter([
         element: <Sellers></Sellers>,
       },
       {
+        path: "/dashboard/addproducts",
+        element: <AddProducts></AddProducts>,
+      },
+      {
         path: "/dashboard/myorders",
         element: <MyOrders></MyOrders>,
+      },
+      {
+        path: "/dashboard/myproducts",
+        element: <MyProducts></MyProducts>,
       },
     ],
   },

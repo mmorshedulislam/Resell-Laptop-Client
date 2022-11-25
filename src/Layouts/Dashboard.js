@@ -3,6 +3,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import NavbarHead from "../Shared/NavbarHead";
 import { FaUserCheck } from "react-icons/fa";
+import { MdAddShoppingCart } from "react-icons/md";
 
 const Dashboard = () => {
   return (
@@ -118,7 +119,16 @@ const Dashboard = () => {
                   </li>
                   <li>
                     <Link
-                      to="#"
+                      to="/dashboard/addproducts"
+                      class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      <MdAddShoppingCart className="text-2xl"/>
+                      <span class="flex-1 ml-3 whitespace-nowrap">Add Products</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard/myproducts"
                       class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       <svg

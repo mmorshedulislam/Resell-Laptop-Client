@@ -6,13 +6,13 @@ const Sellers = () => {
   const { data: sellers = [], refetch } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
-      fetch(`http://localhost:5000/users?userType=seller`).then((res) =>
+      fetch(`${process.env.REACT_APP_PORT}/users?userType=seller`).then((res) =>
         res.json()
       ),
   });
 
   const handleVerified = (id) => {
-    fetch(`http://localhost:5000/user/${id}`, {
+    fetch(`${process.env.REACT_APP_PORT}/user/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -24,7 +24,7 @@ const Sellers = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/user/${id}`, {
+    fetch(`${process.env.REACT_APP_PORT}/user/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
