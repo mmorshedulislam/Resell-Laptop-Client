@@ -2,10 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import Loading from "../Shared/Loading";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
-  const { data: products = [] } = useQuery({
+  const {
+    data: products = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["products"],
     queryFn: () =>
       fetch(
@@ -13,22 +18,60 @@ const MyProducts = () => {
       ).then((res) => res.json()),
   });
 
-  const handleStatus = (id) => {
+  const handleStatusSold = (id) => {
     const agree = window.confirm(
       "Are you sure want to The Product Available to Sold?"
     );
     if (agree) {
-      fetch(`${process.env.REACT_APP_PORT}/myproduct/${id}`, {
+      fetch(`${process.env.REACT_APP_PORT}/productsold/${id}`, {
         method: "PUT",
       })
         .then((res) => res.json())
         .then((data) => {
           if (data.acknowledged) {
             toast.success("Successfully status changed");
+            refetch();
           }
         });
     }
   };
+
+  const handleStatusAvailable = (id) => {
+    const agree = window.confirm(
+      "Are you sure want to The Product Available to Sold?"
+    );
+    if (agree) {
+      fetch(`${process.env.REACT_APP_PORT}/productavailable/${id}`, {
+        method: "PUT",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast.success("Successfully status changed");
+            refetch();
+          }
+        });
+    }
+  };
+
+  const handleDelete = (id) => {
+    const agree = window.confirm("Want to Delete The Product?");
+    if (agree) {
+      fetch(`${process.env.REACT_APP_PORT}/myproduct/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+          }
+        });
+    }
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -61,7 +104,10 @@ const MyProducts = () => {
           </thead>
           <tbody>
             {products.map((product) => (
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <tr
+                key={product._id}
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+              >
                 <td class="p-4 w-32">
                   <img src={product.image} alt={product.name} />
                 </td>
@@ -77,11 +123,21 @@ const MyProducts = () => {
                     <span className="text-center">
                       {product.status === "sold" ? "Sold" : "Available"}
                     </span>
-                    <div onClick={() => handleStatus(product._id)}>
+                    <div>
                       {product.status === "sold" ? (
-                        <button className="btn btn-xs mt-1">Available</button>
+                        <button
+                          onClick={() => handleStatusAvailable(product._id)}
+                          className="btn btn-xs mt-1"
+                        >
+                          Available
+                        </button>
                       ) : (
-                        <button className="btn btn-xs mt-1">Sold</button>
+                        <button
+                          onClick={() => handleStatusSold(product._id)}
+                          className="btn btn-xs mt-1"
+                        >
+                          Sold
+                        </button>
                       )}
                     </div>
                   </div>
@@ -90,7 +146,10 @@ const MyProducts = () => {
                   <button className="btn btn-xs">Add To</button>
                 </td>
                 <td class="py-4 px-6">
-                  <button class="btn btn-xs font-medium text-red-600 dark:text-red-500 hover:underline">
+                  <button
+                    onClick={() => handleDelete(product._id)}
+                    class="btn btn-xs font-medium text-red-600 dark:text-red-500 hover:underline"
+                  >
                     Remove
                   </button>
                 </td>
