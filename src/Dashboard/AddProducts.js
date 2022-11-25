@@ -60,7 +60,8 @@ const AddProducts = () => {
             sellerName: user?.displayName,
             sellerEmail: user?.email,
             sellerVerified: userData?.verified,
-            publishedDate
+            publishedDate, 
+            status: 'available'
           };
 
           fetch(`${process.env.REACT_APP_PORT}/addproducts`, {
