@@ -62,7 +62,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="w-1/2 mx-auto my-10">
+    <div className="w-full px-5 lg:w-1/2 mx-auto my-10">
       <h2 className="text-3xl mb-5">Sign Up</h2>
       <form onSubmit={handleSubmit(handleSignUp)}>
         <div className="mb-6">

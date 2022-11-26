@@ -9,11 +9,11 @@ const Brands = () => {
       .then((data) => setBrands(data));
   }, []);
   return (
-    <div>
-      <h2 className="text-center text-5xl font-semibold my-5">
+    <div className="my-5">
+      <h2 className="text-center text-3xl lg:text-5xl font-semibold my-5">
         Choose Your Brand
       </h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-3 gap-2 lg:gap-5 mx-3 lg:mx-0">
         {brands.map((brand) => (
           <Link
             to={`/brand/${brand._id}`}

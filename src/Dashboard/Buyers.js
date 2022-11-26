@@ -38,7 +38,7 @@ const Buyers = () => {
   };
   return (
     <div>
-      <h2 className="text-5xl text-center">Buyers: {buyers?.length}</h2>
+      <h2 className="text-3xl lg:text-5xl text-center my-5">Buyers: {buyers?.length}</h2>
 
       <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
         <div class="flex justify-between items-center pb-4 bg-white dark:bg-gray-900">

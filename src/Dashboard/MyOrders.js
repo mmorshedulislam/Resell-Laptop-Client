@@ -45,14 +45,17 @@ const MyOrders = () => {
                 key={order._id}
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                <td class="p-4 w-32">
+                <td class="p-4">
+                  <div className="w-20">
                   <img
+                  className="w-full"
                     src="https://flowbite.com/docs/images/products/apple-watch.png"
                     alt="Apple Watch"
                   />
+                  </div>
                 </td>
-                <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                  {order?.productName}
+                <td class="py-4 px-6 lg:font-semibold text-gray-900 dark:text-white">
+                  <p className="">{order?.productName}</p>
                 </td>
                 <td class="py-4 px-6">
                   <div class="flex items-center space-x-3">

@@ -1,4 +1,3 @@
-
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
@@ -36,7 +35,7 @@ const NavbarHead = () => {
               inline={true}
               label={
                 <Avatar
-                  alt="User settings"
+                  alt={user?.displayName}
                   img={user?.photoURL}
                   rounded={true}
                 />
@@ -57,17 +56,19 @@ const NavbarHead = () => {
                 <button onClick={handleLogOut}> Sign out</button>
               </Dropdown.Item>
             </Dropdown>
-            <Navbar.Toggle />
           </div>
         )}
-        <div>
-          <label
-            htmlFor="dashboard-drawer"
-            className="text-2xl drawer-button lg:hidden"
-          >
-            <AiOutlineBars />
-          </label>
-        </div>
+        <Navbar.Toggle />
+        {user && (
+          <div>
+            <label
+              htmlFor="dashboard-drawer"
+              className="text-2xl drawer-button lg:hidden"
+            >
+              <AiOutlineBars />
+            </label>
+          </div>
+        )}
         <Navbar.Collapse>
           <Navbar.Link active={true}>
             <Link to={"/"}>Home</Link>

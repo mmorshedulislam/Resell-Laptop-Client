@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Login = () => {
   const { signInEmailPassword, googleSignIn } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState("");
   const { register, handleSubmit } = useForm();
 
   const handleLogin = (data) => {
@@ -13,8 +14,11 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        setLoginError("");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoginError(err.message || err.code);
+      });
   };
 
   const handleGoogleSignIn = () => {
@@ -25,7 +29,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-1/2 mx-auto my-10">
+    <div className="w-full px-5 lg:w-1/2 lg:mx-auto my-10">
       <h2 className="text-3xl mb-5">Login</h2>
       <form onSubmit={handleSubmit(handleLogin)}>
         <div className="my-6">
@@ -58,7 +62,7 @@ const Login = () => {
             {...register("password", { required: true })}
           />
         </div>
-
+        <p className="text-red-400 mb-2">{loginError}</p>
         <button
           type="submit"
           className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
