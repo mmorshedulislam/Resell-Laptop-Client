@@ -8,7 +8,6 @@ import { AiOutlineBars } from "react-icons/ai";
 const NavbarHead = () => {
   const { user, logOut } = useContext(AuthContext);
 
-  
   const handleLogOut = (e) => {
     e.preventDefault();
     logOut()

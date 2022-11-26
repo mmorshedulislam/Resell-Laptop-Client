@@ -10,7 +10,9 @@ const MyOrders = () => {
   const { data: orders = [], isLoading } = useQuery({
     queryKey: "orders",
     queryFn: () =>
-      fetch(`${process.env.REACT_APP_PORT}/bookings`).then((res) => res.json()),
+      fetch(`${process.env.REACT_APP_PORT}/bookings?email=${user?.email}`).then(
+        (res) => res.json()
+      ),
   });
 
   if (isLoading) {

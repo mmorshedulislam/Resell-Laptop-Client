@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useToken from "../../hooks/useToken";
 
@@ -8,6 +8,7 @@ const Login = () => {
   const { signInEmailPassword, googleSignIn } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const navigate = useNavigate();
 
   const { register, handleSubmit, reset } = useForm();
   const [token] = useToken(userEmail);
@@ -32,6 +33,10 @@ const Login = () => {
       console.log(user);
     });
   };
+
+  if (token) {
+    navigate("/");
+  }
 
   return (
     <div className="w-full px-5 lg:w-1/2 lg:mx-auto my-10">
