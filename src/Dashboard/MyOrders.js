@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { SlClose } from "react-icons/sl";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
@@ -8,13 +9,21 @@ import Loading from "../Shared/Loading";
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
   const { data: orders = [], isLoading } = useQuery({
-    queryKey: "orders",
+    queryKey: ["orders"],
     queryFn: () =>
-      fetch(`${process.env.REACT_APP_PORT}/bookings?email=${user?.email}`).then(
-        (res) => res.json()
-      ),
+      fetch(`${process.env.REACT_APP_PORT}/bookings?email=${user?.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+        .then((res) => res.json())
+/*         .then((data) => {
+          if (data.message) {
+            toast.error(data.message);
+          }
+        }), */
   });
-
+console.log('data', orders);
   if (isLoading) {
     return <Loading></Loading>;
   }
