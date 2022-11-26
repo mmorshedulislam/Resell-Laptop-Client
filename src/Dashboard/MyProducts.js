@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
+import { SlClose } from "react-icons/sl";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Loading from "../Shared/Loading";
 
@@ -98,7 +99,7 @@ const MyProducts = () => {
                 Advertised
               </th>
               <th scope="col" class="py-3 px-6">
-                Action
+                Delete
               </th>
             </tr>
           </thead>
@@ -146,11 +147,8 @@ const MyProducts = () => {
                   <button className="btn btn-xs">Add To</button>
                 </td>
                 <td class="py-4 px-6">
-                  <button
-                    onClick={() => handleDelete(product._id)}
-                    class="btn btn-xs font-medium text-red-600 dark:text-red-500 hover:underline"
-                  >
-                    Remove
+                <button>
+                    <SlClose className="text-2xl" />
                   </button>
                 </td>
               </tr>

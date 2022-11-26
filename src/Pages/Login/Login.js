@@ -2,18 +2,23 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   const { signInEmailPassword, googleSignIn } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
-  const { register, handleSubmit } = useForm();
+  const [userEmail, setUserEmail] = useState("");
+
+  const { register, handleSubmit, reset } = useForm();
+  const [token] = useToken(userEmail);
 
   const handleLogin = (data) => {
     const { email, password } = data;
     signInEmailPassword(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        setUserEmail(user?.email);
+        reset();
         setLoginError("");
       })
       .catch((err) => {

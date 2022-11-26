@@ -12,6 +12,7 @@ const NavbarHead = () => {
     e.preventDefault();
     logOut()
       .then(() => {
+        localStorage.removeItem("accessToken");
         toast.success("Sign Out Successfully.");
       })
       .catch((err) => console.log(err));

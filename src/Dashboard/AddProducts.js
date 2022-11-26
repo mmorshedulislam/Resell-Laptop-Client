@@ -8,7 +8,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const AddProducts = () => {
   const { user } = useContext(AuthContext);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
   const date = new Date();
   const publishedDate = format(date, "PP");
@@ -78,6 +78,7 @@ const AddProducts = () => {
               if (data.insertedId) {
                 navigate("/dashboard/myproducts");
                 toast.success("Product Added successfully.");
+                reset()
                 setLoading(false);
               }
             });

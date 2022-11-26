@@ -6,7 +6,7 @@ const Product = ({ product, setBooking }) => {
   return (
     <>
       {product?.status === "available" && (
-        <div className="w-full bg-[#264653] text-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full mx-5 bg-[#264653] text-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
           <Link href="#">
             <img
               className="p-8 rounded-t-lg"
