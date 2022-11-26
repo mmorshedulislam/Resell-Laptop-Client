@@ -1,26 +1,43 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
 import { SlClose } from "react-icons/sl";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Sellers = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user.email);
   const { data: sellers = [], refetch } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
-      fetch(`${process.env.REACT_APP_PORT}/users?userType=seller`).then((res) =>
-        res.json()
-      ),
+      fetch(
+        `${process.env.REACT_APP_PORT}/users?userType=seller&email=${user?.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      ).then((res) => res.json()),
   });
 
   const handleVerified = (id) => {
-    fetch(`${process.env.REACT_APP_PORT}/user/${id}`, {
-      method: "PUT",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.modifiedCount > 0) {
-          refetch();
+    const agree = window.confirm("Are sure you want to verified this seller?");
+    if (agree) {
+      fetch(
+        `${process.env.REACT_APP_PORT}/verifyuser/${id}?email=${user?.email}`,
+        {
+          method: "PUT",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }
-      });
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            refetch();
+          }
+        });
+    }
   };
 
   const handleDelete = (id) => {
@@ -34,10 +51,12 @@ const Sellers = () => {
         }
       });
   };
-  
+
   return (
     <div>
-      <h2 className="text-3xl my-5 lg:text-5xl text-center">Sellers: {sellers?.length}</h2>
+      <h2 className="text-3xl my-5 lg:text-5xl text-center">
+        Sellers: {sellers?.length}
+      </h2>
 
       <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
         <div class="flex justify-between items-center pb-4 bg-white dark:bg-gray-900">
@@ -56,7 +75,7 @@ const Sellers = () => {
                 <path
                   fill-rule="evenodd"
                   d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </div>

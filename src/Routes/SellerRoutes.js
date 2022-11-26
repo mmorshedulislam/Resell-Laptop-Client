@@ -1,26 +1,24 @@
 import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import useAdmin from "../hooks/useAdmin";
+import useSeller from "../hooks/useSeller";
 import Loading from "../Shared/Loading";
 
-const AdminRoute = ({ children }) => {
+const SellerRoutes = ({ children }) => {
   const { user, logOut } = useContext(AuthContext);
-  const [isAdmin, adminLoading] = useAdmin(user?.email);
+  const [isSeller, sellerLoading] = useSeller(user?.email);
   const location = useLocation();
 
-  if (adminLoading) {
-    return <Loading />;
+  if (sellerLoading) {
+    return <Loading></Loading>;
   }
 
-  if (!isAdmin) {
-    logOut();
+  if (!isSeller) {
     return (
       <Navigate to={"/dashboard"} state={{ from: location }} replace></Navigate>
     );
   }
-
   return children;
 };
 
-export default AdminRoute;
+export default SellerRoutes;

@@ -17,16 +17,12 @@ const MyOrders = () => {
         },
       })
         .then((res) => res.json())
-/*         .then((data) => {
-          if (data.message) {
-            toast.error(data.message);
-          }
-        }), */
   });
-console.log('data', orders);
+
   if (isLoading) {
     return <Loading></Loading>;
   }
+
   return (
     <div>
       <h2 className="text-center text-4xl my-5">My Orders: {orders?.length}</h2>
