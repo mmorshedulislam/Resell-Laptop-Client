@@ -53,7 +53,7 @@ const Login = () => {
           })
             .then((res) => res.json())
             .then((data) => {
-              toast.success("User Created Successfully with Google Login.");
+              toast.success("Successfully Login with Google.");
               reset();
             });
         }

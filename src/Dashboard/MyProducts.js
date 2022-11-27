@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { SlClose } from "react-icons/sl";
+import { json } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Loading from "../Shared/Loading";
 
@@ -70,6 +71,25 @@ const MyProducts = () => {
     }
   };
 
+  const handleAdsProduct = (product) => {
+    const agree = window.confirm("Boost the Product?");
+    if (agree) {
+      fetch(`${process.env.REACT_APP_PORT}/adsproduct`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(product),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            refetch();
+          }
+        });
+    }
+  };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -110,7 +130,11 @@ const MyProducts = () => {
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <td class="p-4 w-32">
-                  <img className="rounded-full w-20" src={product.image} alt={product.name} />
+                  <img
+                    className="rounded-full w-20"
+                    src={product.image}
+                    alt={product.name}
+                  />
                 </td>
                 <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
                   {product.name} <br />
@@ -144,10 +168,20 @@ const MyProducts = () => {
                   </div>
                 </td>
                 <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                  <button className="btn btn-xs">Ads</button>
+                  {product.ads ? (
+                    <span className="">Boosted</span>
+                  ) : (
+                    <button
+                      onClick={() => handleAdsProduct(product)}
+                      className={`py-1 px-2 bg-green-500 text-white rounded-md`}
+                      disabled={product.ads}
+                    >
+                      Ads
+                    </button>
+                  )}
                 </td>
                 <td class="py-4 px-6">
-                <button>
+                  <button>
                     <SlClose className="text-2xl" />
                   </button>
                 </td>
