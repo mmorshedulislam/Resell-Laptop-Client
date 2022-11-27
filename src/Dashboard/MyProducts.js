@@ -144,7 +144,7 @@ const MyProducts = () => {
                   </div>
                 </td>
                 <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                  <button className="btn btn-xs">Add To</button>
+                  <button className="btn btn-xs">Ads</button>
                 </td>
                 <td class="py-4 px-6">
                 <button>

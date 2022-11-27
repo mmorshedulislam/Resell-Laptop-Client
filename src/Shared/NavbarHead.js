@@ -1,5 +1,5 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
@@ -7,12 +7,20 @@ import { AiOutlineBars } from "react-icons/ai";
 import useAdmin from "../hooks/useAdmin";
 import useSeller from "../hooks/useSeller";
 import useBuyer from "../hooks/useBuyer";
+import axios from "axios";
 
 const NavbarHead = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isSeller] = useSeller(user?.email);
   const [isAdmin] = useAdmin(user?.email);
   const [isBuyer] = useBuyer(user?.email);
+
+  const [brands, setBrands] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/brands")
+      .then((data) => setBrands(data.data));
+  }, []);
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -41,11 +49,7 @@ const NavbarHead = () => {
               arrowIcon={false}
               inline={true}
               label={
-                <Avatar
-                  alt={"User"}
-                  img={user?.photoURL}
-                  rounded={true}
-                />
+                <Avatar alt={"User"} img={user?.photoURL} rounded={true} />
               }
             >
               <Dropdown.Header>
@@ -120,15 +124,14 @@ const NavbarHead = () => {
           <Navbar.Link>
             <Link to={"/advertisedProducts"}>Advertised Products</Link>
           </Navbar.Link>
-          <Navbar.Link>
-            <Link to={"/products"}>Dell</Link>
-          </Navbar.Link>
-          <Navbar.Link>
-            <Link to={"/products"}>HP</Link>
-          </Navbar.Link>
-          <Navbar.Link>
-            <Link to={"/products"}>Walton</Link>
-          </Navbar.Link>
+          {brands.map((brand) => (
+            <Navbar.Link key={brand._id}>
+              <Link to={`/brand/${brand._id}`} className="uppercase">
+                {brand.brand}
+              </Link>
+            </Navbar.Link>
+          ))}
+
           {!user ? (
             <Navbar.Link>
               <Link to={"/login"}>Login</Link>

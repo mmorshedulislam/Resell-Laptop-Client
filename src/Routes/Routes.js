@@ -18,7 +18,6 @@ import BuyerRoute from "./BuyerRoute";
 import SellerRoutes from "./SellerRoutes";
 import AdminRoute from "./AdminRoute";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,7 +36,11 @@ const router = createBrowserRouter([
         path: `/brand/:id`,
         loader: ({ params }) =>
           fetch(`${process.env.REACT_APP_PORT}/brand/${params.id}`),
-        element: <BrandProducts></BrandProducts>,
+        element: (
+          <PrivateRoute>
+            <BrandProducts></BrandProducts>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -60,15 +63,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/buyers",
-        element: <AdminRoute>
-          <Buyers></Buyers>
-        </AdminRoute>,
+        element: (
+          <AdminRoute>
+            <Buyers></Buyers>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/sellers",
-        element: <AdminRoute>
-          <Sellers></Sellers>
-        </AdminRoute>,
+        element: (
+          <AdminRoute>
+            <Sellers></Sellers>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/addproducts",
