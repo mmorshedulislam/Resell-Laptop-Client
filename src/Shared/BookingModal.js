@@ -24,8 +24,9 @@ const BookingModal = ({ booking, setBooking }) => {
       buyerEmail,
       phone,
       location,
+      image: booking?.image,
       sellerEmail: booking?.sellerEmail,
-      productId: booking._id,
+      productId: booking?._id,
       bookingDate,
     };
 
@@ -41,6 +42,7 @@ const BookingModal = ({ booking, setBooking }) => {
         if (data.acknowledged) {
           toast.success("Booking Successfully Submitted.");
           setBooking(null);
+          form.reset();
         }
       });
   };
@@ -118,7 +120,7 @@ const BookingModal = ({ booking, setBooking }) => {
           </form>
           <div className="modal-action">
             <label type="submit" htmlFor="booking-modal" className="btn">
-              Submit
+              Close
             </label>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -5,14 +6,9 @@ import { Link } from "react-router-dom";
 const Brands = () => {
   const [brands, setBrands] = useState([]);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_PORT}/brands`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          toast.error(data.message);
-        }
-        setBrands(data);
-      });
+    axios
+      .get(`http://localhost:5000/brands`)
+      .then((data) => setBrands(data.data));
   }, []);
 
   return (

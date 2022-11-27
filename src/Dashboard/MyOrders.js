@@ -15,8 +15,7 @@ const MyOrders = () => {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
-      })
-        .then((res) => res.json())
+      }).then((res) => res.json()),
   });
 
   if (isLoading) {
@@ -58,8 +57,8 @@ const MyOrders = () => {
                   <div className="w-20">
                     <img
                       className="rounded-full w-full"
-                      src="https://flowbite.com/docs/images/products/apple-watch.png"
-                      alt="Apple Watch"
+                      src={order?.image}
+                      alt="Product"
                     />
                   </div>
                 </td>

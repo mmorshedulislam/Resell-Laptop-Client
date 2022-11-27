@@ -4,9 +4,15 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { AiOutlineBars } from "react-icons/ai";
+import useAdmin from "../hooks/useAdmin";
+import useSeller from "../hooks/useSeller";
+import useBuyer from "../hooks/useBuyer";
 
 const NavbarHead = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isSeller] = useSeller(user?.email);
+  const [isAdmin] = useAdmin(user?.email);
+  const [isBuyer] = useBuyer(user?.email);
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -36,7 +42,7 @@ const NavbarHead = () => {
               inline={true}
               label={
                 <Avatar
-                  alt={user?.displayName}
+                  alt={"User"}
                   img={user?.photoURL}
                   rounded={true}
                 />
@@ -48,10 +54,47 @@ const NavbarHead = () => {
                   {user?.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>
-                <Link to={"/dashboard/myorders"}>My Orders</Link>
-              </Dropdown.Item>
-              <Dropdown.Item>My Wishlist</Dropdown.Item>
+
+              {/* Is Admin */}
+              {isAdmin && (
+                <>
+                  <Dropdown.Item>
+                    <Link to={"/dashboard/sellers"}>All Sellers</Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to={"/dashboard/buyers"}>All Buyers</Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to={"/dashboard/reporteditems"}>Reported Items</Link>
+                  </Dropdown.Item>
+                </>
+              )}
+
+              {/* Is Buyer */}
+              {isBuyer && (
+                <>
+                  <Dropdown.Item>
+                    <Link to={"/dashboard/myorders"}>My Orders</Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to={"/dashboard/mywishlist"}>My Wishlist</Link>
+                  </Dropdown.Item>
+                </>
+              )}
+              {/* Is Seller */}
+              {isSeller && (
+                <>
+                  <Dropdown.Item>
+                    <Link to={"/dashboard/mybuyers"}>My Buyers</Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to={"/dashboard/myproducts"}>My Products</Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to={"/dashboard/addproducts"}>Add a Products</Link>
+                  </Dropdown.Item>
+                </>
+              )}
               <Dropdown.Divider />
               <Dropdown.Item>
                 <button onClick={handleLogOut}> Sign out</button>

@@ -7,6 +7,7 @@ import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
   const { createUser, profileUpdate, googleSignIn } = useContext(AuthContext);
+  const [signUpError, setSignUpError] = useState("");
 
   const { handleSubmit, register, reset } = useForm();
   const [userEmail, setUserEmail] = useState("");
@@ -34,7 +35,8 @@ const SignUp = () => {
             .then((result) => {
               const user = result.user;
               setUserEmail(user?.email);
-              
+              setSignUpError("");
+
               profileUpdate(name, imgUrl)
                 .then()
                 .catch((err) => console.log(err));
@@ -61,18 +63,45 @@ const SignUp = () => {
                   });
               }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              setSignUpError(err.message || err.code);
+            });
         }
       });
   };
+
   if (token) {
     navigate("/");
   }
+
   const handleGoogleSignIn = () => {
-    googleSignIn().then((result) => {
-      const user = result.user;
-      console.log(user);
-    });
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        const userData = {
+          name: user?.displayName,
+          image: user.photoURL,
+          email: user?.email,
+          userType: "buyer",
+        };
+
+        if (user?.uid) {
+          setUserEmail(user?.email);
+          fetch(`${process.env.REACT_APP_PORT}/googleuser/${user?.email}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              toast.success("User Created Successfully with Google Login.");
+              reset();
+            });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -131,6 +160,7 @@ const SignUp = () => {
             {...register("email", { required: true })}
           />
         </div>
+        <p className="mb-2 text-red-400">{signUpError}</p>
         <div className="mb-6">
           <label
             for="password"

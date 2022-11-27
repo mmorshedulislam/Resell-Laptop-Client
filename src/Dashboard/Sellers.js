@@ -41,15 +41,18 @@ const Sellers = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_PORT}/user/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
-          refetch();
-        }
-      });
+    const agree = window.confirm("Are sure you want to Delete the SELLER");
+    if (agree) {
+      fetch(`${process.env.REACT_APP_PORT}/user/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+          }
+        });
+    }
   };
 
   return (
@@ -106,7 +109,7 @@ const Sellers = () => {
                 Name
               </th>
               <th scope="col" class="py-3 px-6">
-                Position
+                Email
               </th>
               <th scope="col" class="py-3 px-6">
                 Verification
@@ -149,10 +152,9 @@ const Sellers = () => {
                   />
                   <div class="pl-3">
                     <div class="text-base font-semibold">{seller.name}</div>
-                    <div class="font-normal text-gray-500">{seller?.email}</div>
                   </div>
                 </th>
-                <td class="py-4 px-6">React Developer</td>
+                <td class="py-4 px-6">{seller?.email}</td>
                 <td class="py-4 px-6">
                   <div class="flex items-center">
                     {!seller?.verified ? (

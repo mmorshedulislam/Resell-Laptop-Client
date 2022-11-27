@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useToken from "../../hooks/useToken";
@@ -29,11 +30,35 @@ const Login = () => {
       });
   };
 
+  // GOOGLE SIGNIN
   const handleGoogleSignIn = () => {
-    googleSignIn().then((result) => {
-      const user = result.user;
-      console.log(user);
-    });
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        const userData = {
+          name: user?.displayName,
+          image: user.photoURL,
+          email: user?.email,
+          userType: "buyer",
+        };
+
+        if (user?.uid) {
+          setUserEmail(user?.email);
+          fetch(`${process.env.REACT_APP_PORT}/googleuser/${user?.email}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              toast.success("User Created Successfully with Google Login.");
+              reset();
+            });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   if (token) {

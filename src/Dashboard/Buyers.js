@@ -9,11 +9,14 @@ const Buyers = () => {
   const { data: buyers = [], refetch } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
-      fetch(`${process.env.REACT_APP_PORT}/users?userType=buyer&email=${user?.email}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }).then((res) => res.json()),
+      fetch(
+        `${process.env.REACT_APP_PORT}/users?userType=buyer&email=${user?.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      ).then((res) => res.json()),
   });
 
   const handleUserDelete = (user) => {
@@ -27,16 +30,18 @@ const Buyers = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_PORT}/user/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
-          handleUserDelete(user);
-          refetch();
-        }
-      });
+    const agree = window.confirm("Are you sure want to Delete the Buyer?");
+    if (agree) {
+      fetch(`${process.env.REACT_APP_PORT}/user/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+          }
+        });
+    }
   };
   return (
     <div>
@@ -92,7 +97,7 @@ const Buyers = () => {
                 Name
               </th>
               <th scope="col" class="py-3 px-6">
-                Position
+                Email
               </th>
               <th scope="col" class="py-3 px-6">
                 Status
@@ -135,10 +140,9 @@ const Buyers = () => {
                   />
                   <div class="pl-3">
                     <div class="text-base font-semibold">{buyer?.name}</div>
-                    <div class="font-normal text-gray-500">{buyer?.email}</div>
                   </div>
                 </th>
-                <td class="py-4 px-6">React Developer</td>
+                <td class="py-4 px-6">{buyer?.email}</td>
                 <td class="py-4 px-6">
                   <div class="flex items-center">
                     <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{" "}
