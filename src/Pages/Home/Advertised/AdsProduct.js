@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaCrown } from "react-icons/fa";
 
-const Product = ({ product, setBooking }) => {
+const AdsProduct = ({ product, setBooking }) => {
   return (
     <>
-      {product?.status === "available" && (
+      {product?.status === "available" ? (
         <div className="w-full mx-5 bg-[#264653] text-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 relative">
+          <div className="absolute -top-4 -right-4 text-yellow-500 border border-yellow-300 rounded-full p-1">
+          <FaCrown className="text-4xl "></FaCrown>
+          </div>
           <Link href="#">
             <img
               className="rounded-t-lg"
@@ -70,9 +73,9 @@ const Product = ({ product, setBooking }) => {
             </div>
           </div>
         </div>
-      )}
+      ) : ""}
     </>
   );
 };
 
-export default Product;
+export default AdsProduct;

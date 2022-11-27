@@ -5,7 +5,6 @@ import MyOrders from "../Dashboard/MyOrders";
 import Sellers from "../Dashboard/Sellers";
 import ErrorElement from "../ErrorElement/ErrorElement";
 import Main from "../Layouts/Main";
-import AdvertisedProducts from "../Pages/Home/AdvertisedProducts";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Products from "../Pages/Products/Products";
@@ -18,6 +17,9 @@ import BuyerRoute from "./BuyerRoute";
 import SellerRoutes from "./SellerRoutes";
 import AdminRoute from "./AdminRoute";
 import MyBuyers from "../Dashboard/MyBuyers";
+import AdvertisedProducts from "../Pages/Home/Advertised/AdvertisedProducts";
+import Blog from "../Pages/Blogs/Blog";
+import Blogs from "../Pages/Blogs/Blogs";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/advertisedProducts",
+        loader: () => fetch(`http://localhost:5000/adsproduct`),
         element: <AdvertisedProducts></AdvertisedProducts>,
       },
       {
@@ -42,6 +45,11 @@ const router = createBrowserRouter([
             <BrandProducts></BrandProducts>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/blogs",
+        loader: () => fetch("http://localhost:5000/blogs"),
+        element: <Blogs></Blogs>,
       },
       {
         path: "/login",

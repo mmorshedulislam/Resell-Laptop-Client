@@ -33,7 +33,7 @@ const NavbarHead = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <Navbar fluid={true} rounded={true}>
         <Navbar.Brand>
           <Link to={"/"}>
@@ -131,7 +131,9 @@ const NavbarHead = () => {
               </Link>
             </Navbar.Link>
           ))}
-
+          <Navbar.Link>
+            <Link to={"/blogs"}>Blogs</Link>
+          </Navbar.Link>
           {!user ? (
             <Navbar.Link>
               <Link to={"/login"}>Login</Link>
