@@ -14,6 +14,10 @@ Through this Website a Seller can sell his/her product and a Buyer can purchase 
   1. Manage All Sellers (Seller verify and Delete)
   2. Manage All Buyers (Delete Buyer)
 
+### Login as a Admin: 
+adminEmail: admin@mail.com
+adminPassword: 123456
+
 - ### Seller Dashboard:
 
 1. Add a New Product with Image upload.
