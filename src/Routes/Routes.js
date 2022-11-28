@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/advertisedProducts",
-        loader: () => fetch(`http://localhost:5000/adsproduct`),
+        loader: () => fetch(`${process.env.REACT_APP_PORT}/adsproduct`),
         element: <AdvertisedProducts></AdvertisedProducts>,
       },
       {
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/blogs",
-        loader: () => fetch("http://localhost:5000/blogs"),
+        loader: () => fetch(`${process.env.REACT_APP_PORT}/blogs`),
         element: <Blogs></Blogs>,
       },
       {

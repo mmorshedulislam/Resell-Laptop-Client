@@ -7,7 +7,7 @@ const Brands = () => {
   const [brands, setBrands] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/brands`)
+      .get(`${process.env.REACT_APP_PORT}/brands`)
       .then((data) => setBrands(data.data));
   }, []);
 

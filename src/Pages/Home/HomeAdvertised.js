@@ -1,19 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import AdsProduct from "./AdsProduct";
+import AdsProduct from "./Advertised/AdsProduct";
 
-const AdvertisedProducts = () => {
+const HomeAdvertised = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_PORT}/adsproduct`).then((data) => {
+    axios.get(`${process.env.REACT_APP_PORT}/adsproduct3`).then((data) => {
       setProducts(data.data);
     });
   }, []);
 
   return (
     <>
-      <div className="bg-[#f0fff0] pt-16 rounded-md mt-5">
+      <div className="bg-[#f0fff0] pt-16 rounded-md my-5">
         <div>
           <h2 className="text-center text-5xl pb-5">
             Trending Boost Products...{" "}
@@ -29,4 +29,4 @@ const AdvertisedProducts = () => {
   );
 };
 
-export default AdvertisedProducts;
+export default HomeAdvertised;

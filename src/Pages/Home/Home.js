@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
+import AboutUs from "./AboutUs";
 import AdvertisedProducts from "./Advertised/AdvertisedProducts";
 import Banner from "./Banner";
 import BannerCarousel from "./BannerCarousel";
 import Brands from "./Brands";
+import ContactUs from "./ContactUs";
+import HomeAdvertised from "./HomeAdvertised";
+import HomeBlogs from "./HomeBlogs";
+import OurServices from "./OurServices";
 
 const Home = () => {
   return (
@@ -10,7 +15,11 @@ const Home = () => {
       {/* <BannerCarousel></BannerCarousel> */}
       <Banner></Banner>
       <Brands></Brands>
-      {/* <AdvertisedProducts></AdvertisedProducts> */}
+      <HomeAdvertised></HomeAdvertised>
+      <AboutUs></AboutUs>
+      <OurServices></OurServices>
+      <HomeBlogs></HomeBlogs>
+      <ContactUs></ContactUs>
     </div>
   );
 };

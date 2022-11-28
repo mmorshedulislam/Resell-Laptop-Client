@@ -72,14 +72,20 @@ const MyProducts = () => {
   };
 
   const handleAdsProduct = (product) => {
+    const adProduct = {
+      _id: product._id,
+      name: product.name,
+      phone: product.phone
+    };
+
     const agree = window.confirm("Boost the Product?");
     if (agree) {
-      fetch(`${process.env.REACT_APP_PORT}/adsproduct`, {
+      fetch(`${process.env.REACT_APP_PORT}/v2/adsproduct`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify(product),
+        body: JSON.stringify(adProduct),
       })
         .then((res) => res.json())
         .then((data) => {

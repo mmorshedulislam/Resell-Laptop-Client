@@ -47,7 +47,7 @@ const MyBuyers = () => {
   return (
     <div>
       <h2 className="text-3xl lg:text-5xl text-center my-5">
-        Buyers: {myBuyers?.length}
+        My Buyers: {myBuyers?.length}
       </h2>
 
       <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
