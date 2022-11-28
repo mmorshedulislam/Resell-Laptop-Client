@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Laptop Hunter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### This is a website for buying and selling old Products.
 
-## Available Scripts
+Through this Website a Seller can sell his/her product and a Buyer can purchase any product.
 
-In the project directory, you can run:
+## Features of this Website.
 
-### `yarn start`
+- Single Page Application (SPA).
+- Firebase authentication system.(Login with Email password and Google.)
+- ## Dashboard: Change based on the user role.
+- ### Admin Dashboard:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  1. Manage All Sellers (Seller verify and Delete)
+  2. Manage All Buyers (Delete Buyer)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- ### Seller Dashboard:
 
-### `yarn test`
+1. Add a New Product with Image upload.
+2. Manage his/her All Products.(Product delete, Sold Status: available/sold and add to Advertised).
+3. If the seller wants, they can see their buyer.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- ### Buyer Dashboard:
 
-### `yarn build`
+1. A customer can view his orders if he wants.
+2. If a buyer wants, he can leave his favorite product in the wishlist. And The products he can see on his wishlist page.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- A buyer can order any of his products if he wants with Modal view.
+- Advertised Products or Page.
+- The entire site is fully Responsive.
+- JWT (JSON Web Token). Create token and Verify the token.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Live Website Link
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Hosted in Firebase -> [Laptop Hunter](https://laptop-hunter-fdb94.web.app)
 
-### `yarn eject`
+## Context API
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Documentation Link -> [Link](https://reactjs.org/docs/context.html#api)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## React Router Dom v6.4
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Documentation Link -> [Link](https://reactrouter.com/en/main/start/overview)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Resources & Credits
 
-## Learn More
+## Client Side Hosting
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Firebase -> [Firebase](https://firebase.google.com/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Server side Hosting
 
-### Code Splitting
+Vercel -> [Vercel](https://vercel.com/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## All Data hosted in MongoDB
 
-### Analyzing the Bundle Size
+MongoDB -> [MongoDB](https://www.mongodb.com/atlas/database)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## CSS Frameworks
 
-### Making a Progressive Web App
+Tailwind CSS and React Flowbite library of Tailwind. ->
+[Tailwind](https://tailwindcss.com/)
+[Flowbite](https://flowbite-react.com/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Other Resources
 
-### Advanced Configuration
+Icon -> [React Icons](https://react-icons.github.io/react-icons)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Toast -> [React Hot Toast](https://react-hot-toast.com/)
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Product and Blog Photos -> [Google](https://google.com)
