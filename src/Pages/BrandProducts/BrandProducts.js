@@ -39,7 +39,7 @@ const BrandProducts = () => {
           ></Product>
         ))}
       </div>
-      <BookingModal booking={booking} setBooking={setBooking}></BookingModal>
+      <BookingModal booking={booking} setBooking={setBooking} handleBooking={handleBooking}></BookingModal>
     </div>
   );
 };

@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Loading from "../Shared/Loading";
 
-const MyOrders = () => {
+const MyWishlist = () => {
   const { user } = useContext(AuthContext);
-  const { data: orders = [], isLoading } = useQuery({
-    queryKey: ["orders"],
+  const { data: wishlists = [], isLoading } = useQuery({
+    queryKey: ["wishlists"],
     queryFn: () =>
-      fetch(`${process.env.REACT_APP_PORT}/bookings?email=${user?.email}`, {
+      fetch(`${process.env.REACT_APP_PORT}/wishlist?email=${user?.email}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -24,7 +24,7 @@ const MyOrders = () => {
 
   return (
     <div>
-      <h2 className="text-center text-4xl my-5">My Orders: {orders?.length}</h2>
+      <h2 className="text-center text-4xl my-5">My Wishlist: {wishlists?.length}</h2>
 
       <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -48,32 +48,32 @@ const MyOrders = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {wishlists.map((wishlist) => (
               <tr
-                key={order._id}
+                key={wishlist._id}
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <td class="p-4">
                   <div className="w-20">
                     <img
                       className="rounded-full w-full"
-                      src={order?.image || order?.productImage}
+                      src={wishlist?.image}
                       alt="Product"
                     />
                   </div>
                 </td>
                 <td class="py-4 px-6 lg:font-semibold text-gray-900 dark:text-white">
-                  <p className="">{order?.productName}</p>
+                  <p className="">{wishlist?.name}</p>
                 </td>
                 <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                  ${order.price}
+                  ${wishlist.currentPrice}
                 </td>
                 <td class="py-4 px-6">
                   <Link
-                    to={`/dashboard/payment/${order._id}`}
+                    to={`/dashboard/payment/${wishlist._id}`}
                     class="btn btn-accent btn-sm"
                   >
-                    Pay
+                    Please Pay
                   </Link>
                 </td>
                 <td class="py-4 px-6">
@@ -90,4 +90,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default MyWishlist;

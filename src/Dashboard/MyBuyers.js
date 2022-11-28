@@ -94,6 +94,9 @@ const MyBuyers = () => {
               <th scope="col" class="py-3 px-6">
                 Location
               </th>
+              <th scope="col" class="py-3 px-6">
+                Ordered Product
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -130,6 +133,7 @@ const MyBuyers = () => {
                   </div>
                 </td>
                 <td class="py-4 px-6">{buyer.location}</td>
+                <td class="py-4 px-6">{buyer.productName}</td>
               </tr>
             ))}
           </tbody>

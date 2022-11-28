@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Product = ({ product, setBooking }) => {
+  const { user } = useContext(AuthContext);
+  const buyerEmail = user.email;
+
   const handleAddToWishList = (product) => {
-    console.log(product);
+    const productId = product._id;
+    delete product._id;
+    const wishProduct = { ...product, productId, buyerEmail };
+
+    fetch(`${process.env.REACT_APP_PORT}/wishlist`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(wishProduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success('Successfully added to Wishlist. Please complete the order.')
+        }
+       });
   };
+
   return (
     <>
       {product?.status === "available" && (

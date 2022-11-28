@@ -21,6 +21,7 @@ import AdvertisedProducts from "../Pages/Home/Advertised/AdvertisedProducts";
 import Blog from "../Pages/Blogs/Blog";
 import Blogs from "../Pages/Blogs/Blogs";
 import Payment from "../Pages/Payment/Payment";
+import MyWishlist from "../Dashboard/MyWishlist";
 
 const router = createBrowserRouter([
   {
@@ -116,6 +117,14 @@ const router = createBrowserRouter([
         element: (
           <BuyerRoute>
             <MyOrders></MyOrders>
+          </BuyerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/mywishlist",
+        element: (
+          <BuyerRoute>
+            <MyWishlist></MyWishlist>
           </BuyerRoute>
         ),
       },

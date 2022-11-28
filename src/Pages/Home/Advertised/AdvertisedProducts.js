@@ -1,10 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import BookingModal from "../../../Shared/BookingModal";
 import AdsProduct from "./AdsProduct";
 
 const AdvertisedProducts = () => {
+  const { user } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
+  const [booking, setBooking] = useState(null);
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_PORT}/products`).then((data) => {
       setProducts(data.data);
@@ -21,9 +26,10 @@ const AdvertisedProducts = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-5 pb-10">
           {products.map((product) => (
-            <AdsProduct key={product._id} product={product}></AdsProduct>
+            <AdsProduct key={product._id} product={product} setBooking={setBooking}></AdsProduct>
           ))}
         </div>
+        <BookingModal booking={booking} setBooking={setBooking}></BookingModal>
       </div>
     </>
   );

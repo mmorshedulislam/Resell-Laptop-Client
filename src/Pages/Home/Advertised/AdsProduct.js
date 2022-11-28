@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaCheckCircle, FaCrown } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const AdsProduct = ({ product, setBooking }) => {
+  const { user } = useContext(AuthContext);
+  const buyerEmail = user.email;
+
+  const handleAddToWishList = (product) => {
+    const productId = product._id;
+    delete product._id;
+    const wishProduct = { ...product, productId, buyerEmail };
+
+    fetch(`${process.env.REACT_APP_PORT}/wishlist`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(wishProduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success(
+            "Successfully added to Wishlist. Please complete the order."
+          );
+        }
+      });
+  };
+
   return (
     <>
       {product?.status === "available" && product?.ads ? (
         <div className="w-full bg-[#264653] text-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 relative">
           <div className="absolute -top-4 -right-4 text-yellow-500 border border-yellow-300 rounded-full p-1">
-          <FaCrown className="text-4xl "></FaCrown>
+            <FaCrown className="text-4xl "></FaCrown>
           </div>
           <Link href="#">
             <img
@@ -63,17 +90,37 @@ const AdsProduct = ({ product, setBooking }) => {
                   ${product?.currentPrice}
                 </span>
               </div>
-              <label
-                onClick={() => setBooking(product)}
-                htmlFor="booking-modal"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Book Now
-              </label>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleAddToWishList(product)}
+                  className="w-10 text-w-400 cursor-pointer"
+                >
+                  <img
+                    title="Add to Wishlist"
+                    className="w-full"
+                    src="https://cdn-icons-png.flaticon.com/512/4689/4689880.png"
+                    alt=""
+                  />
+                </button>
+                <label
+                  title="Place Order"
+                  onClick={() => setBooking(product)}
+                  htmlFor="booking-modal"
+                  // className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  <img
+                    className="w-10 cursor-pointer"
+                    src="https://cdn-icons-png.flaticon.com/512/3500/3500833.png"
+                    alt=""
+                  />
+                </label>
+              </div>
             </div>
           </div>
         </div>
-      ) : ""}
+      ) : (
+        ""
+      )}
     </>
   );
 };
