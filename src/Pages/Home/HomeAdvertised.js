@@ -6,7 +6,7 @@ import AdsProduct from "./Advertised/AdsProduct";
 const HomeAdvertised = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_PORT}/adsproduct3`).then((data) => {
+    axios.get(`${process.env.REACT_APP_PORT}/products`).then((data) => {
       setProducts(data.data);
     });
   }, []);

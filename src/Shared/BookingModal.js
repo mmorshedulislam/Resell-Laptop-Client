@@ -28,6 +28,7 @@ const BookingModal = ({ booking, setBooking }) => {
       sellerEmail: booking?.sellerEmail,
       productId: booking?._id,
       bookingDate,
+      buyerImg: user?.photoURL
     };
 
     fetch(`${process.env.REACT_APP_PORT}/booking`, {

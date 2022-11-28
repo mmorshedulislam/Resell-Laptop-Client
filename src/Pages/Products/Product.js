@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 
 const Product = ({ product, setBooking }) => {
+  const handleAddToWishList = (product) => {
+    console.log(product);
+  };
   return (
     <>
       {product?.status === "available" && (
@@ -51,7 +54,7 @@ const Product = ({ product, setBooking }) => {
               <p>Used: {product?.purchaseYear}</p>
             </div>
             <p>{product?.description.slice(0, 120)}...</p>
-            <div className="flex items-center justify-between my-5">
+            <div className="flex items-end justify-between my-5">
               <div className="flex flex-col">
                 <del className="text-xl text-white dark:text-white stroke-black">
                   ${product?.originalPrice}
@@ -60,13 +63,31 @@ const Product = ({ product, setBooking }) => {
                   ${product?.currentPrice}
                 </span>
               </div>
-              <label
-                onClick={() => setBooking(product)}
-                htmlFor="booking-modal"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Book Now
-              </label>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleAddToWishList(product)}
+                  className="w-10 text-w-400 cursor-pointer"
+                >
+                  <img
+                    title="Add to Wishlist"
+                    className="w-full"
+                    src="https://cdn-icons-png.flaticon.com/512/4689/4689880.png"
+                    alt=""
+                  />
+                </button>
+                <label
+                  title="Place Order"
+                  onClick={() => setBooking(product)}
+                  htmlFor="booking-modal"
+                  // className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  <img
+                    className="w-10 cursor-pointer"
+                    src="https://cdn-icons-png.flaticon.com/512/3500/3500833.png"
+                    alt=""
+                  />
+                </label>
+              </div>
             </div>
           </div>
         </div>

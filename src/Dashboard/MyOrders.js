@@ -69,7 +69,10 @@ const MyOrders = () => {
                   ${order.price}
                 </td>
                 <td class="py-4 px-6">
-                  <Link href="#" class="btn btn-accent btn-sm">
+                  <Link
+                    to={`/dashboard/payment/${order._id}`}
+                    class="btn btn-accent btn-sm"
+                  >
                     Pay
                   </Link>
                 </td>

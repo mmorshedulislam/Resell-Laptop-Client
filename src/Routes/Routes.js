@@ -20,6 +20,7 @@ import MyBuyers from "../Dashboard/MyBuyers";
 import AdvertisedProducts from "../Pages/Home/Advertised/AdvertisedProducts";
 import Blog from "../Pages/Blogs/Blog";
 import Blogs from "../Pages/Blogs/Blogs";
+import Payment from "../Pages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,10 @@ const router = createBrowserRouter([
             <MyOrders></MyOrders>
           </BuyerRoute>
         ),
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment></Payment>,
       },
     ],
   },

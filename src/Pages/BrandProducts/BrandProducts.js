@@ -21,7 +21,7 @@ const BrandProducts = () => {
   };
 
   return (
-    <div className="bg-[#f0fff0] my-5">
+    <div className="bg-[#f0eded] my-5">
       <div className="mb-5">
         <h2 className="text-5xl py-2 text-center font-bold uppercase">
           {brand.brand}

@@ -6,14 +6,14 @@ import AdsProduct from "./AdsProduct";
 const AdvertisedProducts = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_PORT}/adsproduct`).then((data) => {
+    axios.get(`${process.env.REACT_APP_PORT}/products`).then((data) => {
       setProducts(data.data);
     });
   }, []);
 
   return (
     <>
-      <div className="bg-[#f0fff0] pt-16 rounded-md mt-5">
+      <div className="bg-[#f0eded] pt-16 rounded-md mt-5">
         <div>
           <h2 className="text-center text-5xl pb-5">
             Trending Boost Products...{" "}

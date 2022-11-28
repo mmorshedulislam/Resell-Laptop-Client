@@ -5,7 +5,7 @@ import { FaCheckCircle, FaCrown } from "react-icons/fa";
 const AdsProduct = ({ product, setBooking }) => {
   return (
     <>
-      {product?.status === "available" ? (
+      {product?.status === "available" && product?.ads ? (
         <div className="w-full bg-[#264653] text-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 relative">
           <div className="absolute -top-4 -right-4 text-yellow-500 border border-yellow-300 rounded-full p-1">
           <FaCrown className="text-4xl "></FaCrown>

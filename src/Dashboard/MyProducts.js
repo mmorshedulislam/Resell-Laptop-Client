@@ -72,24 +72,16 @@ const MyProducts = () => {
   };
 
   const handleAdsProduct = (product) => {
-    const adProduct = {
-      _id: product._id,
-      name: product.name,
-      phone: product.phone
-    };
+    const id = product._id;
 
     const agree = window.confirm("Boost the Product?");
     if (agree) {
-      fetch(`${process.env.REACT_APP_PORT}/v2/adsproduct`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(adProduct),
+      fetch(`${process.env.REACT_APP_PORT}/products/${id}`, {
+        method: "PUT",
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data.acknowledged) {
+          if (data.deletedCount || data.modifiedCount) {
             refetch();
           }
         });
@@ -187,7 +179,7 @@ const MyProducts = () => {
                   )}
                 </td>
                 <td class="py-4 px-6">
-                  <button>
+                  <button onClick={() => handleDelete(product._id)}>
                     <SlClose className="text-2xl" />
                   </button>
                 </td>

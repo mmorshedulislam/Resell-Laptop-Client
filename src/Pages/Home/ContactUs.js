@@ -4,7 +4,7 @@ const ContactUs = () => {
   return (
     <div className="bg-[#023047] py-20 mb-5">
         <h2 className="text-5xl text-center text-white">Contact Us</h2>
-      <form className="w-1/2 lg:w-1/2 mx-auto">
+      <form className="w-full px-5 lg:w-1/2 mx-auto">
         <div className="my-3">
           <label htmlFor="" className="text-white">Name</label>
           <input type="text" placeholder="Your Name" className="bg-[#C3CCD6] input input-bordered w-full" />

@@ -9,14 +9,11 @@ const MyBuyers = () => {
   const { data: myBuyers = [], refetch } = useQuery({
     queryKey: ["myBuyers"],
     queryFn: () =>
-      fetch(
-        `${process.env.REACT_APP_PORT}/mybuyers/${user?.email}`,
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      ).then((res) => res.json()),
+      fetch(`${process.env.REACT_APP_PORT}/mybuyers/${user?.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then((res) => res.json()),
   });
 
   const handleUserDelete = (user) => {
@@ -43,7 +40,7 @@ const MyBuyers = () => {
         });
     }
   };
-  
+
   return (
     <div>
       <h2 className="text-3xl lg:text-5xl text-center my-5">
@@ -82,17 +79,8 @@ const MyBuyers = () => {
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="p-4">
-                <div class="flex items-center">
-                  <input
-                    id="checkbox-all-search"
-                    type="checkbox"
-                    class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label for="checkbox-all-search" class="sr-only">
-                    checkbox
-                  </label>
-                </div>
+              <th scope="col" class="py-3 px-6">
+                Profile
               </th>
               <th scope="col" class="py-3 px-6">
                 Name
@@ -101,10 +89,10 @@ const MyBuyers = () => {
                 Email
               </th>
               <th scope="col" class="py-3 px-6">
-                Status
+                Phone
               </th>
               <th scope="col" class="py-3 px-6">
-                Action
+                Location
               </th>
             </tr>
           </thead>
@@ -114,18 +102,6 @@ const MyBuyers = () => {
                 key={buyer._id}
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                <td class="p-4 w-4">
-                  <div class="flex items-center">
-                    <input
-                      id="checkbox-table-search-1"
-                      type="checkbox"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label for="checkbox-table-search-1" class="sr-only">
-                      checkbox
-                    </label>
-                  </div>
-                </td>
                 <th
                   scope="row"
                   class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
@@ -133,28 +109,27 @@ const MyBuyers = () => {
                   <img
                     class="w-10 h-10 rounded-full"
                     src={
-                      buyer?.image
-                        ? buyer?.image
+                      buyer?.buyerImg
+                        ? buyer?.buyerImg
                         : "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
                     }
-                    alt={buyer?.name}
+                    alt={buyer?.buyerName}
                   />
+                </th>
+                <th>
                   <div class="pl-3">
-                    <div class="text-base font-semibold">{buyer?.name}</div>
+                    <div class="text-base font-semibold">
+                      {buyer?.buyerName}
+                    </div>
                   </div>
                 </th>
-                <td class="py-4 px-6">{buyer?.email}</td>
+                <td class="py-4 px-6">{buyer?.buyerEmail}</td>
                 <td class="py-4 px-6">
                   <div class="flex items-center">
-                    <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{" "}
-                    Online
+                    {buyer?.phone}
                   </div>
                 </td>
-                <td class="py-4 px-6">
-                  <button onClick={() => handleDelete(buyer._id)}>
-                    <SlClose className="text-2xl" />
-                  </button>
-                </td>
+                <td class="py-4 px-6">{buyer.location}</td>
               </tr>
             ))}
           </tbody>
