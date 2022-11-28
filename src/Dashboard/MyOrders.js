@@ -8,7 +8,11 @@ import Loading from "../Shared/Loading";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
-  const { data: orders = [], isLoading } = useQuery({
+  const {
+    data: orders = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["orders"],
     queryFn: () =>
       fetch(`${process.env.REACT_APP_PORT}/bookings?email=${user?.email}`, {
@@ -17,6 +21,21 @@ const MyOrders = () => {
         },
       }).then((res) => res.json()),
   });
+
+  const handleDelete = (id) => {
+    const agree = window.confirm("Are you sure want to Delete the Order?");
+    if (agree) {
+      fetch(`${process.env.REACT_APP_PORT}/myorders/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+          }
+        });
+    }
+  };
 
   if (isLoading) {
     return <Loading></Loading>;
@@ -77,7 +96,7 @@ const MyOrders = () => {
                   </Link>
                 </td>
                 <td class="py-4 px-6">
-                  <button>
+                  <button onClick={() => handleDelete(order?._id)}>
                     <SlClose className="text-2xl" />
                   </button>
                 </td>

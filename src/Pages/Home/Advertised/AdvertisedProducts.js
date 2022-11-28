@@ -20,7 +20,7 @@ const AdvertisedProducts = () => {
     <>
       <div className="bg-[#f0eded] pt-16 rounded-md mt-5">
         <div>
-          <h2 className="text-center text-5xl pb-5">
+          <h2 className="text-center text-3xl lg:text-5xl pb-5">
             Trending Boost Products...{" "}
           </h2>
         </div>

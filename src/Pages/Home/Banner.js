@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -21,7 +22,9 @@ const Banner = () => {
             <p className="mb-5">
               HP Pavilion 14-ec0005na Full-HD Laptop – Ryzen™ 7
             </p>
-            <button className="btn btn-accent">Get Started</button>
+            <button className="btn btn-accent">
+              <Link to="/advertisedProducts">Get Started</Link>{" "}
+            </button>
           </div>
         </div>
       </div>

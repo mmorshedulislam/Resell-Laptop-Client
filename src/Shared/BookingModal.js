@@ -1,12 +1,15 @@
 import { format } from "date-fns";
 import React, { useContext } from "react";
 import toast from "react-hot-toast";
+import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const BookingModal = ({ booking, setBooking }) => {
   const { user } = useContext(AuthContext);
   const date = new Date();
   const bookingDate = format(date, "PP");
+  const location = useLocation();
+
   const handleBookingForm = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -28,7 +31,7 @@ const BookingModal = ({ booking, setBooking }) => {
       sellerEmail: booking?.sellerEmail,
       productId: booking?._id,
       bookingDate,
-      buyerImg: user?.photoURL
+      buyerImg: user?.photoURL,
     };
 
     fetch(`${process.env.REACT_APP_PORT}/booking`, {
@@ -47,86 +50,104 @@ const BookingModal = ({ booking, setBooking }) => {
         }
       });
   };
+
+  if (!user) {
+    toast.error("Please login first.");
+    return (
+      <Navigate to={"/login"} state={{ from: location }} replace></Navigate>
+    );
+  }
+
   return (
-    <div>
-      <input type="checkbox" id="booking-modal" className="modal-toggle" />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg text-center">Booking Form</h3>
-          <form onSubmit={handleBookingForm}>
-            <div className="my-3">
-              <p>Product Name</p>
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                value={booking?.name}
-                readOnly
-                name="productName"
-              />
+    <>
+      {
+        <div>
+          <input type="checkbox" id="booking-modal" className="modal-toggle" />
+          <div className="modal modal-bottom sm:modal-middle">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg text-center">Booking Form</h3>
+              <form onSubmit={handleBookingForm}>
+                <div className="my-3">
+                  <p>Product Name</p>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full"
+                    value={booking?.name}
+                    readOnly
+                    name="productName"
+                    required
+                  />
+                </div>
+                <div className="my-3">
+                  <p>Product Price</p>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full"
+                    value={booking?.currentPrice}
+                    readOnly
+                    name="price"
+                    required
+                  />
+                </div>
+                <div className="my-3">
+                  <p>Your Name</p>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full"
+                    value={user?.displayName}
+                    readOnly
+                    name="buyerName"
+                    required
+                  />
+                </div>
+                <div className="my-3">
+                  <p>Email</p>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full"
+                    value={user?.email}
+                    readOnly
+                    name="buyerEmail"
+                    required
+                  />
+                </div>
+                <div className="my-3">
+                  <p>Phone</p>
+                  <input
+                    type="number"
+                    className="input input-bordered w-full"
+                    placeholder="Your Phone Number"
+                    autoFocus
+                    name="phone"
+                    required
+                  />
+                </div>
+                <div className="my-3">
+                  <p>Location</p>
+                  <input
+                    type="text"
+                    className="input input-bordered w-full"
+                    placeholder="Meeting Location"
+                    name="location"
+                    required
+                  />
+                </div>
+                <input
+                  type="submit"
+                  value={"Submit"}
+                  className="btn btn-bordered w-full"
+                />
+              </form>
+              <div className="modal-action">
+                <label type="submit" htmlFor="booking-modal" className="btn">
+                  Close
+                </label>
+              </div>
             </div>
-            <div className="my-3">
-              <p>Product Price</p>
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                value={booking?.currentPrice}
-                readOnly
-                name="price"
-              />
-            </div>
-            <div className="my-3">
-              <p>Your Name</p>
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                value={user?.displayName}
-                readOnly
-                name="buyerName"
-              />
-            </div>
-            <div className="my-3">
-              <p>Email</p>
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                value={user?.email}
-                readOnly
-                name="buyerEmail"
-              />
-            </div>
-            <div className="my-3">
-              <p>Phone</p>
-              <input
-                type="number"
-                className="input input-bordered w-full"
-                placeholder="Your Phone Number"
-                autoFocus
-                name="phone"
-              />
-            </div>
-            <div className="my-3">
-              <p>Location</p>
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                placeholder="Meeting Location"
-                name="location"
-              />
-            </div>
-            <input
-              type="submit"
-              value={"Submit"}
-              className="btn btn-bordered w-full"
-            />
-          </form>
-          <div className="modal-action">
-            <label type="submit" htmlFor="booking-modal" className="btn">
-              Close
-            </label>
           </div>
         </div>
-      </div>
-    </div>
+      }
+    </>
   );
 };
 

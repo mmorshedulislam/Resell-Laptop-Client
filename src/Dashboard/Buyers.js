@@ -94,6 +94,9 @@ const Buyers = () => {
                 </div>
               </th>
               <th scope="col" class="py-3 px-6">
+                Profile
+              </th>
+              <th scope="col" class="py-3 px-6">
                 Name
               </th>
               <th scope="col" class="py-3 px-6">
@@ -138,6 +141,8 @@ const Buyers = () => {
                     }
                     alt={buyer?.name}
                   />
+                </th>
+                <th>
                   <div class="pl-3">
                     <div class="text-base font-semibold">{buyer?.name}</div>
                   </div>

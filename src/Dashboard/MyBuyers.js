@@ -3,10 +3,15 @@ import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { SlClose } from "react-icons/sl";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import Loading from "../Shared/Loading";
 
 const MyBuyers = () => {
   const { user, userDelete } = useContext(AuthContext);
-  const { data: myBuyers = [], refetch } = useQuery({
+  const {
+    data: myBuyers = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["myBuyers"],
     queryFn: () =>
       fetch(`${process.env.REACT_APP_PORT}/mybuyers/${user?.email}`, {
@@ -40,6 +45,10 @@ const MyBuyers = () => {
         });
     }
   };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div>
@@ -128,9 +137,7 @@ const MyBuyers = () => {
                 </th>
                 <td class="py-4 px-6">{buyer?.buyerEmail}</td>
                 <td class="py-4 px-6">
-                  <div class="flex items-center">
-                    {buyer?.phone}
-                  </div>
+                  <div class="flex items-center">{buyer?.phone}</div>
                 </td>
                 <td class="py-4 px-6">{buyer.location}</td>
                 <td class="py-4 px-6">{buyer.productName}</td>

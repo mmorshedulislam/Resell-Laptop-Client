@@ -106,6 +106,9 @@ const Sellers = () => {
                 </div>
               </th>
               <th scope="col" class="py-3 px-6">
+                Profile
+              </th>
+              <th scope="col" class="py-3 px-6">
                 Name
               </th>
               <th scope="col" class="py-3 px-6">
@@ -150,7 +153,9 @@ const Sellers = () => {
                     }
                     alt={seller?.name}
                   />
-                  <div class="pl-3">
+                </th>
+                <th>
+                  <div class="">
                     <div class="text-base font-semibold">{seller.name}</div>
                   </div>
                 </th>

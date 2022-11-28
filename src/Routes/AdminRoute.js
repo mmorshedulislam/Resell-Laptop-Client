@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import useAdmin from "../hooks/useAdmin";
@@ -14,6 +15,7 @@ const AdminRoute = ({ children }) => {
   }
 
   if (!isAdmin) {
+    toast.error('Sorry! You are not Admin!')
     logOut();
     return (
       <Navigate to={"/dashboard"} state={{ from: location }} replace></Navigate>

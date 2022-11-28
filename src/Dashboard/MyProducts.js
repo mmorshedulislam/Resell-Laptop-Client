@@ -129,7 +129,7 @@ const MyProducts = () => {
               >
                 <td class="p-4 w-32">
                   <img
-                    className="rounded-full w-20"
+                    className="rounded-full w-full"
                     src={product.image}
                     alt={product.name}
                   />

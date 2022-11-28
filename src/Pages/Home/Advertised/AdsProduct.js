@@ -6,7 +6,7 @@ import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const AdsProduct = ({ product, setBooking }) => {
   const { user } = useContext(AuthContext);
-  const buyerEmail = user.email;
+  const buyerEmail = user?.email;
 
   const handleAddToWishList = (product) => {
     const productId = product._id;

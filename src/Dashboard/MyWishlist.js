@@ -8,7 +8,11 @@ import Loading from "../Shared/Loading";
 
 const MyWishlist = () => {
   const { user } = useContext(AuthContext);
-  const { data: wishlists = [], isLoading } = useQuery({
+  const {
+    data: wishlists = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["wishlists"],
     queryFn: () =>
       fetch(`${process.env.REACT_APP_PORT}/wishlist?email=${user?.email}`, {
@@ -18,13 +22,30 @@ const MyWishlist = () => {
       }).then((res) => res.json()),
   });
 
+  const handleDelete = (id) => {
+    const agree = window.confirm("Are you sure want to Delete the Product from Wishlist?");
+    if (agree) {
+      fetch(`${process.env.REACT_APP_PORT}/mywishlist/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+          }
+        });
+    }
+  };
+
   if (isLoading) {
     return <Loading></Loading>;
   }
 
   return (
     <div>
-      <h2 className="text-center text-4xl my-5">My Wishlist: {wishlists?.length}</h2>
+      <h2 className="text-center text-4xl my-5">
+        My Wishlist: {wishlists?.length}
+      </h2>
 
       <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -77,7 +98,7 @@ const MyWishlist = () => {
                   </Link>
                 </td>
                 <td class="py-4 px-6">
-                  <button>
+                  <button onClick={() => handleDelete(wishlist?._id)}>
                     <SlClose className="text-2xl" />
                   </button>
                 </td>

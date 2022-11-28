@@ -6,31 +6,31 @@ import {MdConnectWithoutContact, MdLocalShipping} from 'react-icons/md'
 const OurServices = () => {
   return (
     <div className="py-20 mb-5 bg-[#2f4f4f] text-white">
-      <h2 className="text-5xl text-center">Our Services</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 my-10 ">
-        <div className="flex justify-center items-center flex-col mx-auto">
-          <p className="block text-7xl w-2/4 mx-auto">
+      <h2 className="text-3xl lg:text-5xl text-center font-bold">Our Services</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 my-10">
+        <div className="flex justify-center items-center flex-col w-full mx-auto my-3">
+          <p className="flex justify-center items-center text-7xl w-full mx-auto">
             <MdLocalShipping />
           </p>
-          <p className="text-xl">Free Shipping</p>
+          <p className="text-xl text-center">Free Shipping</p>
         </div>
-        <div className="flex justify-center items-center flex-col mx-auto">
-          <p className="block text-7xl w-2/4 mx-auto">
+        <div className="flex justify-center items-center flex-col w-full mx-auto my-3">
+          <p className="flex justify-center items-center text-7xl w-full mx-auto">
             <RiSecurePaymentFill />
           </p>
-          <p className="text-xl">100% Genuine Product</p>
+          <p className="text-xl text-center">100% Genuine Product</p>
         </div>
-        <div className="flex justify-center items-center flex-col mx-auto">
-          <p className="block text-7xl w-2/4 mx-auto">
+        <div className="flex justify-center items-center flex-col w-full mx-auto my-3">
+          <p className="flex justify-center items-center text-7xl w-full mx-auto">
             <FaMoneyBillWave />
           </p>
-          <p className="text-xl">Money Back Guarantee</p>
+          <p className="text-xl text-center">Money Back Guarantee</p>
         </div>
-        <div className="flex justify-center items-center flex-col mx-auto">
-          <p className="block text-7xl w-2/4 mx-auto">
+        <div className="flex justify-center items-center flex-col w-full mx-auto my-3">
+          <p className="flex justify-center items-center text-7xl w-full mx-auto">
             <MdConnectWithoutContact />
           </p>
-          <p className="text-xl">Quick Response</p>
+          <p className="text-xl text-center">Quick Response</p>
         </div>
     
       </div>

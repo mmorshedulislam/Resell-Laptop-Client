@@ -6,7 +6,7 @@ const Blogs = () => {
   const blogs = useLoaderData();
 
   return (
-    <div className="py-20 px-10">
+    <div className="py-20 px-5">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {blogs.map((blog) => (
           <Blog key={blog._id} blog={blog}></Blog>
