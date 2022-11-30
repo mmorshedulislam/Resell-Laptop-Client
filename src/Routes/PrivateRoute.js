@@ -9,7 +9,6 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    toast.error("Please login first.");
     return <Loading></Loading>;
   }
 

@@ -51,12 +51,12 @@ const BookingModal = ({ booking, setBooking }) => {
       });
   };
 
-  if (!user) {
+/*   if (!user) {
     toast.error("Please login first.");
     return (
       <Navigate to={"/login"} state={{ from: location }} replace></Navigate>
     );
-  }
+  } */
 
   return (
     <>

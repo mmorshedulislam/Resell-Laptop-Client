@@ -92,6 +92,7 @@ const AdsProduct = ({ product, setBooking }) => {
               </div>
               <div className="flex items-center gap-3">
                 <button
+                  disabled={!user}
                   onClick={() => handleAddToWishList(product)}
                   className="w-10 text-w-400 cursor-pointer"
                 >
