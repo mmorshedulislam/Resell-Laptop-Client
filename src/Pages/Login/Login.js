@@ -11,7 +11,7 @@ const Login = () => {
   const [userEmail, setUserEmail] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  // const from = location.state?.from?.pathname || "/";
 
   const { register, handleSubmit, reset } = useForm();
   const [token] = useToken(userEmail);
@@ -62,7 +62,7 @@ const Login = () => {
   };
 
   if (token) {
-    navigate(from, { replace: true });
+    navigate('/', { replace: true });
   }
 
   return (
