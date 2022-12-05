@@ -20,8 +20,8 @@ import MyBuyers from "../Dashboard/MyBuyers";
 import AdvertisedProducts from "../Pages/Home/Advertised/AdvertisedProducts";
 import Blog from "../Pages/Blogs/Blog";
 import Blogs from "../Pages/Blogs/Blogs";
-import Payment from "../Pages/Payment/Payment";
 import MyWishlist from "../Dashboard/MyWishlist";
+import Payment from "../Pages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -130,6 +130,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/payment/:id",
+        loader: ({params}) =>
+          fetch(`${process.env.REACT_APP_PORT}/booking/${params.id}`),
         element: <Payment></Payment>,
       },
     ],

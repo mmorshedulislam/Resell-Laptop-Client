@@ -37,6 +37,8 @@ const MyOrders = () => {
     }
   };
 
+  console.log(orders);
+
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -45,23 +47,23 @@ const MyOrders = () => {
     <div>
       <h2 className="text-center text-4xl my-5">My Orders: {orders?.length}</h2>
 
-      <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" class="py-3 px-6">
-                <span class="sr-only">Image</span>
+              <th scope="col" className="py-3 px-6">
+                <span className="sr-only">Image</span>
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" className="py-3 px-6">
                 Product
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" className="py-3 px-6">
                 Price
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" className="py-3 px-6">
                 Payment
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" className="py-3 px-6">
                 Delete
               </th>
             </tr>
@@ -70,9 +72,9 @@ const MyOrders = () => {
             {orders.map((order) => (
               <tr
                 key={order._id}
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                <td class="p-4">
+                <td className="p-4">
                   <div className="w-20">
                     <img
                       className="rounded-full w-full"
@@ -81,21 +83,25 @@ const MyOrders = () => {
                     />
                   </div>
                 </td>
-                <td class="py-4 px-6 lg:font-semibold text-gray-900 dark:text-white">
+                <td className="py-4 px-6 lg:font-semibold text-gray-900 dark:text-white">
                   <p className="">{order?.productName}</p>
                 </td>
-                <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                <td className="py-4 px-6 font-semibold text-gray-900 dark:text-white">
                   ${order.price}
                 </td>
-                <td class="py-4 px-6">
-                  <Link
-                    to={`/dashboard/payment/${order._id}`}
-                    class="btn btn-accent btn-sm"
-                  >
-                    Pay
-                  </Link>
+                <td className="py-4 px-6">
+                  {order?.paid ? (
+                    <span className="text-green-500 text-xl">Paid</span>
+                  ) : (
+                    <Link
+                      to={`/dashboard/payment/${order._id}`}
+                      className="py-2 px-3 bg-green-500 text-white btn-sm rounded-md"
+                    >
+                      Pay
+                    </Link>
+                  )}
                 </td>
-                <td class="py-4 px-6">
+                <td className="py-4 px-6">
                   <button onClick={() => handleDelete(order?._id)}>
                     <SlClose className="text-2xl" />
                   </button>

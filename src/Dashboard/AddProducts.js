@@ -65,7 +65,7 @@ const AddProducts = () => {
             publishedDate,
             status: "available",
           };
-          setLoading(true)
+          setLoading(true);
           fetch(`${process.env.REACT_APP_PORT}/addproducts`, {
             method: "POST",
             headers: {
@@ -78,7 +78,7 @@ const AddProducts = () => {
               if (data.insertedId) {
                 navigate("/dashboard/myproducts");
                 toast.success("Product Added successfully.");
-                reset()
+                reset();
                 setLoading(false);
               }
             });
@@ -153,7 +153,7 @@ const AddProducts = () => {
         <div className="w-full px-5">
           <div>
             <input
-              class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
               id="file_input"
               type="file"
               {...register("image", { required: true })}
@@ -168,12 +168,12 @@ const AddProducts = () => {
             <button
               disabled
               type="button"
-              class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
+              className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
             >
               <svg
                 aria-hidden="true"
                 role="status"
-                class="inline mr-3 w-4 h-4 text-white animate-spin"
+                className="inline mr-3 w-4 h-4 text-white animate-spin"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -192,7 +192,7 @@ const AddProducts = () => {
           ) : (
             <button
               type="submit"
-              class="w-full  mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              className="w-full  mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >
               Add Product
             </button>
