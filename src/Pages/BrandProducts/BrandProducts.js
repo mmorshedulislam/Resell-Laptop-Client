@@ -44,11 +44,13 @@ const BrandProducts = () => {
           ></Product>
         ))}
       </div>
-      <BookingModal
-        booking={booking}
-        setBooking={setBooking}
-        handleBooking={handleBooking}
-      ></BookingModal>
+      {booking && (
+        <BookingModal
+          booking={booking}
+          setBooking={setBooking}
+          handleBooking={handleBooking}
+        ></BookingModal>
+      )}
     </div>
   );
 };

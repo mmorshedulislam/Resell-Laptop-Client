@@ -47,16 +47,10 @@ const BookingModal = ({ booking, setBooking }) => {
           toast.success("Booking Successfully Submitted.");
           setBooking(null);
           form.reset();
+          setBooking(null);
         }
       });
   };
-
-/*   if (!user) {
-    toast.error("Please login first.");
-    return (
-      <Navigate to={"/login"} state={{ from: location }} replace></Navigate>
-    );
-  } */
 
   return (
     <>
@@ -138,11 +132,6 @@ const BookingModal = ({ booking, setBooking }) => {
                   className="btn btn-bordered w-full"
                 />
               </form>
-              <div className="modal-action">
-                <label type="submit" htmlFor="booking-modal" className="btn">
-                  Close
-                </label>
-              </div>
             </div>
           </div>
         </div>
