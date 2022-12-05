@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -6,12 +6,16 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useToken from "../../hooks/useToken";
 
 const Login = () => {
-  const { signInEmailPassword, googleSignIn } = useContext(AuthContext);
+  const { signInEmailPassword, googleSignIn, forgotPassword } =
+    useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [forgotMessage, setForgotMessage] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   // const from = location.state?.from?.pathname || "/";
+
+  const emailRef = useRef();
 
   const { register, handleSubmit, reset } = useForm();
   const [token] = useToken(userEmail);
@@ -61,8 +65,25 @@ const Login = () => {
       .catch((err) => console.log(err));
   };
 
+  // Forgotten password
+  const handleForgotPassword = () => {
+    const email = emailRef.current.value;
+    if (email) {
+      forgotPassword(email)
+        .then(() => {
+          setForgotMessage("");
+          toast.success("Password Reset Email Sent.");
+        })
+        .catch((err) => {
+          setForgotMessage(err.message || err.code);
+        });
+    } else {
+      toast.error("Email is Required.");
+    }
+  };
+
   if (token) {
-    navigate('/', { replace: true });
+    navigate("/", { replace: true });
   }
 
   return (
@@ -82,7 +103,13 @@ const Login = () => {
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             placeholder="Your Email"
             {...register("email", { required: true })}
+            ref={emailRef}
           />
+          {forgotMessage && (
+            <span className="text-red-400">
+              Your Email is invalid. Please try a valid email.
+            </span>
+          )}
         </div>
         <div className="mb-6">
           <label
@@ -126,7 +153,9 @@ const Login = () => {
             for="terms"
             className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            <button className="text-blue-700">Forgotten Password?</button>
+            <button onClick={handleForgotPassword} className="text-blue-700">
+              Forgotten Password?
+            </button>
           </label>
         </div>
       </div>
