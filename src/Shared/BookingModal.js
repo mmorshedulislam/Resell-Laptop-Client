@@ -89,7 +89,7 @@ const BookingModal = ({ booking, setBooking }) => {
                     type="text"
                     className="input input-bordered w-full"
                     value={user?.displayName}
-                    readOnly
+                    readOnly={user?.displayName}
                     name="buyerName"
                     required
                   />
@@ -100,7 +100,7 @@ const BookingModal = ({ booking, setBooking }) => {
                     type="text"
                     className="input input-bordered w-full"
                     value={user?.email}
-                    readOnly
+                    readOnly={user?.email}
                     name="buyerEmail"
                     required
                   />
@@ -132,6 +132,12 @@ const BookingModal = ({ booking, setBooking }) => {
                   className="btn btn-bordered w-full"
                 />
               </form>
+              <label
+                htmlFor="booking-modal"
+                className="btn btn-sm btn-circle absolute right-2 top-2"
+              >
+                X
+              </label>
             </div>
           </div>
         </div>

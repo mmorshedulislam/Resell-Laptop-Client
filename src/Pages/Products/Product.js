@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const Product = ({ product, setBooking }) => {
   const { user } = useContext(AuthContext);
-  const buyerEmail = user.email;
+  const buyerEmail = user?.email;
 
   const handleAddToWishList = (product) => {
     const productId = product._id;
@@ -34,7 +34,7 @@ const Product = ({ product, setBooking }) => {
         <div className="w-full bg-[#264653] text-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 relative">
           <Link href="#">
             <img
-              className="rounded-t-lg"
+              className="rounded-t-lg w-full h-72"
               src={product?.image}
               alt={product?.name}
             />

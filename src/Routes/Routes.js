@@ -42,11 +42,7 @@ const router = createBrowserRouter([
         path: `/brand/:id`,
         loader: ({ params }) =>
           fetch(`${process.env.REACT_APP_PORT}/brand/${params.id}`),
-        element: (
-          <PrivateRoute>
-            <BrandProducts></BrandProducts>
-          </PrivateRoute>
-        ),
+        element: <BrandProducts></BrandProducts>,
       },
       {
         path: "/blogs",
@@ -130,7 +126,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/payment/:id",
-        loader: ({params}) =>
+        loader: ({ params }) =>
           fetch(`${process.env.REACT_APP_PORT}/booking/${params.id}`),
         element: <Payment></Payment>,
       },

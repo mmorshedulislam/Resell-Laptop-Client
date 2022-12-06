@@ -39,7 +39,7 @@ const AdsProduct = ({ product, setBooking }) => {
           </div>
           <Link href="#">
             <img
-              className="rounded-t-lg"
+              className="rounded-t-lg w-full h-72"
               src={product?.image}
               alt={product?.name}
             />

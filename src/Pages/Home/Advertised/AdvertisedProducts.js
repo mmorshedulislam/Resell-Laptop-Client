@@ -33,7 +33,7 @@ const AdvertisedProducts = () => {
             ></AdsProduct>
           ))}
         </div>
-        {user && (
+        {booking && (
           <BookingModal
             booking={booking}
             setBooking={setBooking}
