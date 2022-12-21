@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import BookingModal from "../../Shared/BookingModal";
 import Loading from "../../Shared/Loading";
+import ProjectLoading from "../../Shared/ProjectLoading";
 import Product from "../Products/Product";
 
 const BrandProducts = () => {
@@ -22,7 +23,8 @@ const BrandProducts = () => {
   };
 
   if (isLoading) {
-    return <Loading></Loading>;
+    // return <Loading></Loading>;
+    return <ProjectLoading></ProjectLoading>;
   }
 
   return (
