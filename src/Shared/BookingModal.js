@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import React, { useContext } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
@@ -9,6 +10,8 @@ const BookingModal = ({ booking, setBooking }) => {
   const date = new Date();
   const bookingDate = format(date, "PP");
   const location = useLocation();
+
+  const [processing, setProcessing] = useState(false);
 
   const handleBookingForm = (event) => {
     event.preventDefault();
@@ -34,6 +37,7 @@ const BookingModal = ({ booking, setBooking }) => {
       buyerImg: user?.photoURL,
     };
 
+    setProcessing(true);
     fetch(`${process.env.REACT_APP_PORT}/booking`, {
       method: "POST",
       headers: {
@@ -48,7 +52,11 @@ const BookingModal = ({ booking, setBooking }) => {
           setBooking(null);
           form.reset();
           setBooking(null);
+          setProcessing(false);
         }
+      })
+      .catch((err) => {
+        setProcessing(false);
       });
   };
 
@@ -130,6 +138,7 @@ const BookingModal = ({ booking, setBooking }) => {
                   type="submit"
                   value={"Submit"}
                   className="btn btn-bordered w-full"
+                  disabled={processing}
                 />
               </form>
               <label
