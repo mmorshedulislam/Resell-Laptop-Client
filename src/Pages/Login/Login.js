@@ -196,7 +196,7 @@ const Login = () => {
           </button>
         </div>
       </div>
-      <div className="order-first lg:order-last p-5 flex justify-center items-center">
+      <div className="order-first p-5 flex justify-center items-center">
         <img
           className="w-full"
           src="https://img.freepik.com/premium-vector/online-registration-sign-up-with-man-sitting-near-smartphone_268404-95.jpg"

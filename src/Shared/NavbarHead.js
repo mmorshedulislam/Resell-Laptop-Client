@@ -33,12 +33,12 @@ const NavbarHead = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <Navbar fluid={true} rounded={true}>
         <Navbar.Brand>
           <Link to={"/"}>
             {" "}
-            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+            <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white">
               Laptop Hunter
             </span>
           </Link>
@@ -118,29 +118,42 @@ const NavbarHead = () => {
           </div>
         )}
         <Navbar.Collapse>
-          <Navbar.Link active={true}>
-            <Link to={"/"}>Home</Link>
+          <Navbar.Link>
+            <Link className="font-semibold" to={"/"}>
+              Home
+            </Link>
           </Navbar.Link>
           <Navbar.Link>
-            <Link to={"/advertisedProducts"}>Advertised Products</Link>
+            <Link className="font-semibold" to={"/advertisedProducts"}>
+              Ads Products
+            </Link>
           </Navbar.Link>
           {brands.map((brand) => (
             <Navbar.Link key={brand._id}>
-              <Link to={`/brand/${brand._id}`} className="uppercase">
+              <Link
+                to={`/brand/${brand._id}`}
+                className="uppercase font-semibold"
+              >
                 {brand.brand}
               </Link>
             </Navbar.Link>
           ))}
           <Navbar.Link>
-            <Link to={"/blogs"}>Blogs</Link>
+            <Link className="font-semibold" to={"/blogs"}>
+              Blogs
+            </Link>
           </Navbar.Link>
           {!user ? (
             <Navbar.Link>
-              <Link to={"/login"}>Login</Link>
+              <Link className="font-semibold" to={"/login"}>
+                Login
+              </Link>
             </Navbar.Link>
           ) : (
             <Navbar.Link>
-              <Link to={"/dashboard"}>Dashboard</Link>
+              <Link className="font-semibold" to={"/dashboard"}>
+                Dashboard
+              </Link>
             </Navbar.Link>
           )}
         </Navbar.Collapse>
