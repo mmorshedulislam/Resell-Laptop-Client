@@ -29,30 +29,32 @@ const BrandProducts = () => {
 
   return (
     <div className="bg-[#f0eded] my-5">
-      <div className="mb-5">
-        <h2 className="text-5xl py-2 text-center font-bold uppercase">
-          {brand.brand}
-        </h2>
-        <p className="text-center text-xl w-3/4 lg:w-full mx-auto">
-          Pick out your Best with World Class Brand...
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-5 pb-10">
-        {products.map((product) => (
-          <Product
-            key={product?._id}
-            product={product}
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-5">
+          <h2 className="text-5xl py-2 text-center font-bold uppercase">
+            {brand.brand}
+          </h2>
+          <p className="text-center text-xl w-3/4 lg:w-full mx-auto">
+            Pick out your Best with World Class Brand...
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-5 pb-10">
+          {products.map((product) => (
+            <Product
+              key={product?._id}
+              product={product}
+              setBooking={setBooking}
+            ></Product>
+          ))}
+        </div>
+        {booking && (
+          <BookingModal
+            booking={booking}
             setBooking={setBooking}
-          ></Product>
-        ))}
+            handleBooking={handleBooking}
+          ></BookingModal>
+        )}
       </div>
-      {booking && (
-        <BookingModal
-          booking={booking}
-          setBooking={setBooking}
-          handleBooking={handleBooking}
-        ></BookingModal>
-      )}
     </div>
   );
 };

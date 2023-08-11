@@ -27,26 +27,28 @@ const AdvertisedProducts = () => {
   return (
     <>
       <div className="bg-[#f0eded] pt-16 rounded-md mt-5">
-        <div>
-          <h2 className="text-center text-3xl lg:text-5xl pb-5 uppercase">
-            Advertised Products: {products?.length}
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-5 pb-10">
-          {products.map((product) => (
-            <AdsProduct
-              key={product._id}
-              product={product}
+        <div className="max-w-7xl mx-auto">
+          <div>
+            <h2 className="text-center text-3xl lg:text-5xl pb-5 uppercase">
+              Advertised Products: {products?.length}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-5 pb-10">
+            {products.map((product) => (
+              <AdsProduct
+                key={product._id}
+                product={product}
+                setBooking={setBooking}
+              ></AdsProduct>
+            ))}
+          </div>
+          {booking && (
+            <BookingModal
+              booking={booking}
               setBooking={setBooking}
-            ></AdsProduct>
-          ))}
+            ></BookingModal>
+          )}
         </div>
-        {booking && (
-          <BookingModal
-            booking={booking}
-            setBooking={setBooking}
-          ></BookingModal>
-        )}
       </div>
     </>
   );
