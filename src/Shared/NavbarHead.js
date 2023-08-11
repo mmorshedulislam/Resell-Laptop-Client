@@ -33,7 +33,7 @@ const NavbarHead = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       <Navbar fluid={true} rounded={true}>
         <Navbar.Brand>
           <Link to={"/"}>

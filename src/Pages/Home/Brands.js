@@ -12,7 +12,7 @@ const Brands = () => {
   }, []);
 
   return (
-    <div className="my-5">
+    <div className="max-w-7xl mx-auto my-5">
       <h2 className="text-center text-3xl lg:text-5xl font-semibold my-5">
         Choose Your Brand
       </h2>
